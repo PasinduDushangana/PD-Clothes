@@ -10,7 +10,7 @@ No packages or build step are needed. From the repository directory, run:
 python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000`. Keep `index.html`, `styles.css`, `script.js`, `products.js`, and `assets/` together.
+Open `http://localhost:8000`. Keep `index.html`, `styles.css`, `theme.css`, `script.js`, `products.js`, and `assets/` together. The dark visual theme is in `theme.css`; the catalog and its prices stay in `products.js`.
 
 ## Publish with GitHub Pages
 
