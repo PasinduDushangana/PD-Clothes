@@ -11,7 +11,7 @@ window.PD_PRODUCTS = [
   name: 'Filla Bag',
   category: 'Mini Bags',
   price: 1999,
-  image: 'assets/afterhours.webp',
+  image: 'file:///C:/Users/Home/Downloads/WhatsApp%20Image%202026-10-24%20at%201.06.08%20PM.jpeg',
   images: ['assets/afterhours.webp'], // optional extra gallery photos
   color: 'Gold',
   badge: 'HOT DEALS',
@@ -22,8 +22,8 @@ window.PD_PRODUCTS = [
   id: 'filla-bag',
   name: 'Filla Bag',
   category: 'Mini Bags',
-  price: 1999, // confirm this price
-  image: 'assets/filla.webp', // replace with the correct photo
+  price: 1559, // confirm this price
+  image: 'file:///C:/Users/Home/Downloads/WhatsApp%20Image%202026-10-24%20at%201.05.56%20PM.jpeg', // replace with the correct photo
   images: ['assets/filla.webp'],
   color: 'Gold',
   badge: 'HOT DEALS',
