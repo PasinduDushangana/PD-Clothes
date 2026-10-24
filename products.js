@@ -17,5 +17,17 @@ window.PD_PRODUCTS = [
   badge: 'HOT DEALS',
   description: 'A lovely looked bag for school students.',
   featured: false
+},
+  {
+  id: 'filla-bag',
+  name: 'Filla Bag',
+  category: 'Mini Bags',
+  price: 1999, // confirm this price
+  image: 'assets/filla.webp', // replace with the correct photo
+  images: ['assets/filla.webp'],
+  color: 'Gold',
+  badge: 'HOT DEALS',
+  description: 'A lovely-looking bag for school students.',
+  featured: false
 }
 ];
