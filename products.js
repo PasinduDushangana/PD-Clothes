@@ -7,9 +7,9 @@ window.PD_PRODUCTS = [
   { id: 'woven-daydream', name: 'Woven Daydream', category: 'Shoulder Bags', price: 7200, image: 'assets/woven.webp', color: 'Ivory', badge: 'LIMITED', description: 'Texture that catches the light. A fresh finishing touch for your favorite looks.', featured: false },
   { id: 'muse-mini', name: 'Muse Mini Bag', category: 'Mini Bags', price: 5900, image: 'assets/muse.webp', color: 'Olive', badge: '', description: 'Small in size, big on charm. The little bag you will reach for again and again.', featured: false },
   {
-  id: 'weekend-carryall',
+  id: 'Filla Bag',
   name: 'Filla Bag',
-  category: 'School Bags',
+  category: 'Mini Bags',
   price: 1999,
   image: '',
   images: [''], // optional extra gallery photos
