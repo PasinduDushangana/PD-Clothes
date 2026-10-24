@@ -14,7 +14,7 @@ Open `http://localhost:8000`. Keep `index.html`, `styles.css`, `script.js`, `pro
 
 ## Publish with GitHub Pages
 
-Push these files to the repository’s `main` branch. In GitHub, open **Settings → Pages**, choose **Deploy from a branch**, select **main** and **/(root)**, then save. GitHub will show the public site address there once deployment finishes. Later product edits committed to `main` will appear after Pages rebuilds. You can use another static host if preferred.
+Push these files to the repository’s `main` branch. The repository includes a GitHub Actions workflow at `.github/workflows/pages.yml` that deploys the site. In GitHub, open **Settings → Pages**, choose **GitHub Actions** as the source, and save. GitHub will show the public site address there once the first deployment finishes. Later product edits committed to `main` will trigger a new deployment. You can use another static host if preferred.
 
 ## Add or update products on GitHub
 
