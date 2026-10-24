@@ -33,9 +33,8 @@
         <p class="image-caption">PD CLOTHES / THE BAG EDIT</p>
       </div>
       <div class="detail-information">
-        <span class="small-index">THE BAG EDIT / ${safe(product.category)}</span>
+        <span class="small-index">PD CLOTHES / THE COLLECTION</span>
         <h1 id="detailTitle">${safe(product.name)}</h1>
-        <p class="detail-subtitle">${safe(product.category)} <span>✳</span> ${safe(product.color)}</p>
         <div class="detail-price">${money(product.price)}</div>
         <div class="detail-divider"></div>
         <p class="detail-description">${safe(product.description)}</p>
@@ -44,7 +43,7 @@
         <button class="pill-button dark-button detail-add" id="detailAdd" type="button">ADD TO BAG <svg><use href="#i-arrow"/></svg></button>
         <a class="pill-button detail-order" id="detailOrder" target="_blank" rel="noopener noreferrer">ORDER THIS BAG ON WHATSAPP <svg><use href="#i-arrow"/></svg></a>
         <div class="detail-utilities"><button type="button" id="detailFavorite" aria-pressed="false"><svg><use href="#i-heart"/></svg><span>SAVE THIS BAG</span></button><button type="button" id="detailShare"><svg><use href="#i-arrow"/></svg><span>SHARE THIS BAG</span></button></div>
-        <div class="detail-accordions"><details><summary>ABOUT THIS STYLE <span>+</span></summary><p>${safe(product.description)} Please confirm the final product details with us before ordering.</p></details><details><summary>DELIVERY & PAYMENT <span>+</span></summary><p>Message us on WhatsApp to confirm availability, delivery options, and payment details. No online payment is collected on this website.</p></details><details><summary>HOW TO ORDER <span>+</span></summary><p>Choose a quantity and tap “Order this bag on WhatsApp.” Your message will include the product name, color, quantity, and estimated total.</p></details></div>
+        <div class="detail-accordions"><details><summary>DELIVERY & PAYMENT <span>+</span></summary><p>Message us on WhatsApp to confirm availability, delivery options, and payment details. No online payment is collected on this website.</p></details></div>
       </div>
     </section>`;
 

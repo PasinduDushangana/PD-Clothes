@@ -18,6 +18,8 @@ Push these files to the repository’s `main` branch. The repository includes a 
 
 ## Add or update products on GitHub
 
+The animated gallery at the top automatically selects five products. By default, append a new product to the end of `PD_PRODUCTS` to make it the newest. You can also set `addedAt: '2026-10-24'` (an ISO date) on products: dated items are sorted newest first, followed by undated items in reverse catalog order. To use dates consistently, add this field to all products. The gallery shows fewer cards when fewer than five products exist, pauses during interaction, and starts paused when the visitor prefers reduced motion.
+
 1. Add the product photograph to `assets/` in the GitHub repository. Use a square WebP or JPG image; around 1000 × 1000 px is a good size. Do not reuse another product's image unless it is the same bag.
 2. Open [`products.js`](products.js) on GitHub, click the pencil icon, and add an object inside the `window.PD_PRODUCTS` array. Put a comma after the preceding product. For example:
 
