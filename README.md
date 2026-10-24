@@ -10,7 +10,7 @@ No packages or build step are needed. From the repository directory, run:
 python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000`. Keep `index.html`, `product.html`, the CSS and JavaScript files, and `assets/` together. The dark visual theme is in `theme.css`; the catalog and its prices stay in `products.js`. Each product automatically gets a detail URL such as `product.html?id=weekend-carryall`.
+Open `http://localhost:8000`. Keep all HTML pages, CSS and JavaScript files, and `assets/` together. The latest colors and typography are in `studio.css`; the catalog and its prices stay in `products.js`. Each product automatically gets a detail URL such as `product.html?id=weekend-carryall`.
 
 ## Publish with GitHub Pages
 
@@ -40,9 +40,9 @@ The animated gallery at the top automatically selects five products. By default,
 
 3. Commit the image and `products.js`. Your hosting service will publish the changes according to its deployment setup. Reload the site to see the new bag.
 
-`id` must be unique and should stay the same after publishing, because product links and saved shopping bags use it. `price` is a number of Sri Lankan rupees without commas or a currency symbol. `image` is a path relative to the site root. `images` is optional; add extra photo paths there for thumbnail selection on the detail page, or omit the field when you have one photo. Upload those images to `assets/` too. `category` creates a filter automatically; reuse an existing category name to keep items together. `badge` can be an empty string (`''`) for no label. `featured` is reserved for future merchandising; the default order follows the order in this file. Edit or remove an object to update or remove a product. The sample products and prices are placeholders: replace them with your real inventory and prices before selling.
+`id` must be unique and should stay the same after publishing, because product links and saved shopping bags use it. `price` is a number of Sri Lankan rupees without commas or a currency symbol. `image` is a path relative to the site root. `images` is optional; add extra photo paths there for thumbnail selection on the detail page, or omit the field when you have one photo. Upload those images to `assets/` too. `category` creates a filter automatically; reuse an existing category name to keep items together. `badge` can be an empty string (`''`) for no label. Set `featured: true` for home-page recommendations. The home page shows up to three featured bags, filling any remaining spaces from the catalog. The shop’s default order follows the catalog. Edit or remove an object to update or remove a product. The sample products and prices are placeholders: replace them with your real inventory and prices before selling.
 
-To change the WhatsApp recipient, search for `94719891483` in `script.js`, `product.js`, `index.html`, and `product.html` and replace every occurrence with the new number in international format, without `+`, spaces, or a leading zero.
+To change the WhatsApp recipient, search for `94719891483` across the HTML and JavaScript files and replace every occurrence with the new number in international format, without `+`, spaces, or a leading zero.
 
 ## Validate changes
 
@@ -57,3 +57,14 @@ Shoppers can filter by **On sale**, **My favorites**, and **Available only**, an
 Run the local server, load the home page, search or filter for the new product, add it to the bag, and tap **Order on WhatsApp**. Check that the WhatsApp message names the right product, quantity, and price. The site stores the bag and favorites in the visitor's browser; no customer data is sent to the site itself.
 
 Images in `assets/` are illustrative generated artwork. Product details and availability must be confirmed by the shop owner before publication.
+
+## Pages and fonts
+
+- `index.html`: home, automatic latest-five gallery, and featured bags.
+- `shop.html`: full collection with search, sorting, sale and stock filters.
+- `favorites.html`: saved bags for the current browser, with search and filtering.
+- `product.html?id=...`: product details and WhatsApp ordering.
+- `about.html`: shop introduction and how shopping works.
+- `contact.html`: FAQs and a form that opens a prepared WhatsApp message for the visitor to send. Form entries are not stored by this website.
+
+Navigation and the cart work across all pages. `pages.js` handles featured bags and the contact form. Outfit headings and Manrope body text are self-hosted in `assets/fonts/`, with their font licenses included; visitors do not need to connect to a font service. `studio.css` is loaded last to apply the blue-green and mint theme consistently.

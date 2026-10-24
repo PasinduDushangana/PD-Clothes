@@ -16,7 +16,8 @@
   favorites = favorites.filter(id => byId.has(id));
   let activeCategory = 'All bags';
   let searchTerm = '';
-  let saleOnly = false, savedOnly = false, availableOnly = false;
+  const favoritesPage = document.body.dataset.page === 'favorites';
+  let saleOnly = false, savedOnly = favoritesPage, availableOnly = false;
   let lastFocus = null;
   let toastTimer;
 
@@ -73,6 +74,8 @@
     options.className = 'shopping-options';
     options.innerHTML = '<label><input type="checkbox" id="saleOnly"> On sale</label><label><input type="checkbox" id="savedOnly"> My favorites</label><label><input type="checkbox" id="availableOnly"> Available only</label>';
     $('productGrid').before(options);
+    $('savedOnly').checked = favoritesPage;
+    if (favoritesPage) $('savedOnly').parentElement.hidden = true;
     options.addEventListener('change', () => { saleOnly = $('saleOnly').checked; savedOnly = $('savedOnly').checked; availableOnly = $('availableOnly').checked; renderProducts(); });
     $('sortSelect').add(new Option('Biggest discount', 'discount'));
     $('filters').addEventListener('click', event => { const button = event.target.closest('[data-category]'); if (!button) return; activeCategory = button.dataset.category; renderFilters(); renderProducts(); });
@@ -84,7 +87,7 @@
     });
   }
   $('cartItems').addEventListener('click', event => {
-    if (event.target.closest('#continueShopping')) { closeCart(); location.href = 'index.html#collection'; return; }
+    if (event.target.closest('#continueShopping')) { closeCart(); location.href = 'shop.html'; return; }
     for (const [attribute, change] of [['data-increase',1],['data-decrease',-1],['data-remove',0]]) { const button = event.target.closest(`[${attribute}]`); if (!button) continue; const id = button.getAttribute(attribute); if (!byId.has(id)) return; if (change === 0 || cart[id]+change <= 0) delete cart[id]; else cart[id] = Math.min(cart[id]+change,99); updateCart(); return; }
   });
   $('cartOpen').addEventListener('click',openCart);
@@ -95,7 +98,7 @@
     $('searchToggle').addEventListener('click',() => { const wrap = $('searchWrap'); wrap.hidden = !wrap.hidden; if (!wrap.hidden) { location.hash='collection'; $('searchInput').focus(); } else { $('searchInput').value=''; searchTerm=''; renderProducts(); } });
     $('searchInput').addEventListener('input',event => { searchTerm = event.target.value.trim().toLowerCase(); renderProducts(); });
     $('clearSearch').addEventListener('click',() => { $('searchInput').value=''; searchTerm=''; renderProducts(); $('searchInput').focus(); });
-    $('resetFilters').addEventListener('click',() => { activeCategory='All bags'; searchTerm=''; saleOnly=savedOnly=availableOnly=false; ['saleOnly','savedOnly','availableOnly'].forEach(id => $(id).checked=false); $('searchInput').value=''; renderFilters(); renderProducts(); });
+    $('resetFilters').addEventListener('click',() => { activeCategory='All bags'; searchTerm=''; saleOnly=availableOnly=false; savedOnly=favoritesPage; ['saleOnly','savedOnly','availableOnly'].forEach(id => $(id).checked=false); $('savedOnly').checked=favoritesPage; $('searchInput').value=''; renderFilters(); renderProducts(); });
     $('sortSelect').addEventListener('change',renderProducts);
   }
   $('menuToggle').addEventListener('click',() => { const open = $('navLinks').classList.toggle('open'); $('menuToggle').setAttribute('aria-expanded',String(open)); });
