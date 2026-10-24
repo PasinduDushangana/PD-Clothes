@@ -16,6 +16,6 @@ window.PD_PRODUCTS = [
   color: 'Gold',
   badge: 'HOT DEALS',
   description: 'A lovely looked bag for school students.',
-  featured: true
+  featured: false
 }
 ];
