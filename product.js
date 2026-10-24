@@ -1,5 +1,6 @@
 (() => {
   'use strict';
+  const { priceHTML, savings, available } = window.PD_COMMERCE;
   const products = Array.isArray(window.PD_PRODUCTS) ? window.PD_PRODUCTS : [];
   const id = new URLSearchParams(location.search).get('id');
   const product = products.find(item => item.id === id);
@@ -35,7 +36,7 @@
       <div class="detail-information">
         <span class="small-index">PD CLOTHES / THE COLLECTION</span>
         <h1 id="detailTitle">${safe(product.name)}</h1>
-        <div class="detail-price">${money(product.price)}</div>
+        <div class="detail-price">${priceHTML(product)}</div>
         <div class="detail-divider"></div>
         <p class="detail-description">${safe(product.description)}</p>
         <div class="detail-specs"><div><span>STYLE</span><strong>${safe(product.category)}</strong></div><div><span>COLOR</span><strong>${safe(product.color)}</strong></div></div>
@@ -48,6 +49,7 @@
     </section>`;
 
   function orderUrl() {
+    if (!available(product)) return 'https://wa.me/94719891483?text=' + encodeURIComponent('Hi PD Clothes! Please let me know when ' + product.name + ' is available again.');
     const message = `Hi PD Clothes! I would like to order:\n\n• ${product.name} (${product.color}) × ${quantity} — ${money(product.price * quantity)}\n\nPlease confirm availability, delivery, and payment details.`;
     return `https://wa.me/94719891483?text=${encodeURIComponent(message)}`;
   }
@@ -56,6 +58,11 @@
   $('qtyIncrease').addEventListener('click', () => { quantity = Math.min(99, quantity + 1); refreshQuantity(); });
   $('detailAdd').addEventListener('click', () => window.dispatchEvent(new CustomEvent('pd:add-to-cart', { detail: { id: product.id, quantity } })));
   refreshQuantity();
+  if (!available(product)) {
+    $('detailAdd').disabled = true; $('detailAdd').textContent = 'SOLD OUT';
+    $('qtyIncrease').disabled = true; $('qtyDecrease').disabled = true;
+    $('detailOrder').textContent = 'ASK ABOUT AVAILABILITY';
+  }
 
   const favoritesKey = 'pd-clothes-favorites-v1';
   function favorites() { try { const value = JSON.parse(localStorage.getItem(favoritesKey)); return Array.isArray(value) ? value : []; } catch { return []; } }
@@ -84,6 +91,6 @@
   const related = products.filter(item => item.id !== product.id).sort((a, b) => Number(b.category === product.category) - Number(a.category === product.category)).slice(0, 3);
   if (related.length) {
     $('relatedSection').hidden = false;
-    $('relatedGrid').innerHTML = related.map(item => `<a class="related-card" href="${productUrl(item)}"><div class="related-image"><img src="${safe(item.image)}" alt="${safe(item.name)}" loading="lazy"></div><div class="related-meta"><div><small>${safe(item.category)}</small><h3>${safe(item.name)}</h3></div><span>${money(item.price)}</span></div></a>`).join('');
+    $('relatedGrid').innerHTML = related.map(item => `<a class="related-card" href="${productUrl(item)}"><div class="related-image"><img src="${safe(item.image)}" alt="${safe(item.name)}" loading="lazy"></div><div class="related-meta"><div><small>${safe(item.category)}</small><h3>${safe(item.name)}</h3></div><span class="related-price">${priceHTML(item)}</span></div></a>`).join('');
   }
 })();

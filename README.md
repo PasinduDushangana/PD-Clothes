@@ -46,6 +46,14 @@ To change the WhatsApp recipient, search for `94719891483` in `script.js`, `prod
 
 ## Validate changes
 
+### Discounts, availability, and saved bags
+
+Keep `price` as the amount the customer pays. To show a discount, add `originalPrice` with the real previous price, greater than `price`. For example, `price: 6000, originalPrice: 7500` shows **20% OFF**, a crossed-out Rs. 7,500, and a current price of Rs. 6,000. Percentages are calculated automatically; the catalog, latest gallery, detail pages, related bags, cart, and WhatsApp totals use the current price. The cart also shows the total saved. Remove `originalPrice` to stop showing a sale. An equal, lower, or invalid original price is ignored. Existing product prices have not been changed or discounted automatically.
+
+Set `inStock: false` to mark a product sold out. It stays visible, but cannot be added to the bag; its detail page offers an availability inquiry on WhatsApp. Previously saved sold-out items are removed from the cart when a page loads. Remove the field or set it to `true` to allow ordering again. This is a manually managed catalog, not a live inventory system; confirm stock in chat.
+
+Shoppers can filter by **On sale**, **My favorites**, and **Available only**, and sort by **Biggest discount**. Favorites are saved in that browser. These filters combine with category and search; “Show all bags” resets them when there are no matches.
+
 Run the local server, load the home page, search or filter for the new product, add it to the bag, and tap **Order on WhatsApp**. Check that the WhatsApp message names the right product, quantity, and price. The site stores the bag and favorites in the visitor's browser; no customer data is sent to the site itself.
 
 Images in `assets/` are illustrative generated artwork. Product details and availability must be confirmed by the shop owner before publication.
