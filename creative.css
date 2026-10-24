@@ -101,6 +101,19 @@
 @media (prefers-reduced-motion:reduce) { .arrival-slide { transition: none; } }
 
 /* A quieter, more focused storefront. */
+.site-header { top: 0; }
+.nav { background: #191613d9; border-color: #ffffff19; border-radius: 18px; }
+.nav-links a { font-size: 9px; letter-spacing: .13em; }
+.arrival-hero { background: radial-gradient(ellipse at 80% 40%,#43332475,transparent 60%),#11100e; }
+.arrival-aura { display: none; }
+.arrival-copy .eyebrow { color: #ba9d7b; }
+.arrival-photo { border-radius: 17px; }
+.arrival-tag { display: none; }
+.arrival-slide { background: #211b16; border-color: #a98c6342; box-shadow: 0 25px 70px #0005; }
+.concierge { display: grid; grid-template-columns: 1fr 1fr; gap: 12%; padding: 65px; margin-bottom: 85px; border: 1px solid #78614955; border-radius: 26px; background: linear-gradient(120deg,#30261c,#191613); }
+.concierge h2 { font: 400 clamp(36px,4vw,59px)/1.1 Georgia,serif; letter-spacing: -.04em; margin: 20px 0 0; }
+.concierge h2 em { color: #d6ae85; }
+.concierge p { color: #b7a998; font-size: 14px; line-height: 1.9; margin: 0 0 24px; }
 .arrival-hero { padding-bottom: 55px; border-radius: 0 0 32px 32px; }
 .arrival-layout { grid-template-columns: 1fr 1fr; gap: 65px; }
 .arrival-copy h1 { font-size: clamp(65px,7.4vw,112px); line-height: 1.05; margin-bottom: 27px; }
@@ -151,4 +164,41 @@
   .statement h2 { font-size: 48px; }
   .order-section { padding-top: 75px; padding-bottom: 75px; }
   .detail-information h1 { font-size: 48px; }
+}
+
+/* Final spacing and product-led presentation. */
+.arrival-hero { padding-top: 130px; padding-bottom: 42px; }
+.arrival-layout { grid-template-columns: 1.08fr .92fr; gap: 50px; }
+.arrival-copy h1 { font-size: clamp(64px,7vw,102px); }
+.collection { padding-top: 80px; padding-bottom: 85px; }
+.section-heading h2 { font-size: clamp(48px,4.6vw,68px); }
+.shop-toolbar { border-radius: 16px; background: transparent; border-color: #ffffff1f; }
+.product-card { background: transparent; padding: 0 0 12px; border: 0; box-shadow: none; }
+.product-card:hover { box-shadow: none; }
+.product-image-wrap { border: 1px solid #b3906329; border-radius: 18px; }
+.product-meta { padding-left: 3px; padding-right: 3px; }
+.product-name { font-size: 23px; }
+.product-category { font-size: 9px; color: #ac9e8c; }
+.product-price { color: #d4b18a; font-weight: 500; }
+.product-grid { row-gap: 42px; }
+.footer { border-radius: 0; background: #0d0c0a; }
+.footer-main { padding: 50px 0; }
+.footer-logo { font-size: 58px; }
+.detail-information h1 { letter-spacing: -.045em; }
+.detail-specs > div { background: #1e1914; border-color: #80604450; }
+.related-card { background: transparent; border: 0; padding: 0; }
+.related-meta { padding-left: 0; padding-right: 0; }
+@media(max-width:800px) {
+  .arrival-layout { grid-template-columns: 1fr; gap: 0; }
+  .arrival-hero { padding-top: 105px; }
+  .arrival-copy h1 { font-size: clamp(52px,10vw,75px); }
+  .arrival-copy > p { margin-bottom: 19px; }
+  .arrival-gallery { margin-top: 27px; }
+  .collection { padding-top: 55px; padding-bottom: 60px; }
+  .section-heading h2 { font-size: 43px; }
+  .product-name { font-size: 17px; }
+  .product-grid { row-gap: 27px; }
+  .concierge { display: block; padding: 30px 24px; margin-bottom: 55px; }
+  .concierge h2 { font-size: 38px; margin-bottom: 22px; }
+  .concierge p { font-size: 13px; }
 }
