@@ -11,8 +11,8 @@ window.PD_PRODUCTS = [
   name: 'Filla Bag',
   category: 'Mini Bags',
   price: 1999,
-  image: '',
-  images: [''], // optional extra gallery photos
+  image: 'assets/afterhours.webp',
+  images: ['assets/afterhours.webp'], // optional extra gallery photos
   color: 'Gold',
   badge: 'HOT DEALS',
   description: 'A lovely looked bag for school students.',
