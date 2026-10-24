@@ -1,6 +1,6 @@
 # PD Clothes
 
-A responsive bag storefront with search, category filters, sorting, favorites, a saved shopping bag, and WhatsApp ordering. There is no online payment or checkout account. Customers choose bags on the site, then tap **Order on WhatsApp** to send the items, quantities, and estimated subtotal to **+94 71 989 1483**. The owner confirms availability, delivery, and payment in the chat.
+A responsive bag storefront with search, category filters, sorting, favorites, individual product pages, a saved shopping bag, and WhatsApp ordering. There is no online payment or checkout account. Customers choose bags on the site, then tap **Order on WhatsApp** to send the items, quantities, and estimated subtotal to **+94 71 989 1483**. The owner confirms availability, delivery, and payment in the chat.
 
 ## Run locally
 
@@ -10,7 +10,7 @@ No packages or build step are needed. From the repository directory, run:
 python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000`. Keep `index.html`, `styles.css`, `theme.css`, `script.js`, `products.js`, and `assets/` together. The dark visual theme is in `theme.css`; the catalog and its prices stay in `products.js`.
+Open `http://localhost:8000`. Keep `index.html`, `product.html`, the CSS and JavaScript files, and `assets/` together. The dark visual theme is in `theme.css`; the catalog and its prices stay in `products.js`. Each product automatically gets a detail URL such as `product.html?id=weekend-carryall`.
 
 ## Publish with GitHub Pages
 
@@ -28,6 +28,7 @@ Push these files to the repository’s `main` branch. The repository includes a 
      category: 'Tote Bags',
      price: 9800,
      image: 'assets/weekend-carryall.webp',
+     images: ['assets/weekend-carryall-side.webp'], // optional extra gallery photos
      color: 'Sand',
      badge: 'NEW ARRIVAL',
      description: 'A roomy bag for days away.',
@@ -37,9 +38,9 @@ Push these files to the repository’s `main` branch. The repository includes a 
 
 3. Commit the image and `products.js`. Your hosting service will publish the changes according to its deployment setup. Reload the site to see the new bag.
 
-`id` must be unique and should stay the same after publishing, because saved shopping bags use it. `price` is a number of Sri Lankan rupees without commas or a currency symbol. `image` is a path relative to the site root. `category` creates a filter automatically; reuse an existing category name to keep items together. `badge` can be an empty string (`''`) for no label. `featured` is reserved for future merchandising; the default order follows the order in this file. Edit or remove an object to update or remove a product. The sample products and prices are placeholders: replace them with your real inventory and prices before selling.
+`id` must be unique and should stay the same after publishing, because product links and saved shopping bags use it. `price` is a number of Sri Lankan rupees without commas or a currency symbol. `image` is a path relative to the site root. `images` is optional; add extra photo paths there for thumbnail selection on the detail page, or omit the field when you have one photo. Upload those images to `assets/` too. `category` creates a filter automatically; reuse an existing category name to keep items together. `badge` can be an empty string (`''`) for no label. `featured` is reserved for future merchandising; the default order follows the order in this file. Edit or remove an object to update or remove a product. The sample products and prices are placeholders: replace them with your real inventory and prices before selling.
 
-To change the WhatsApp recipient, search for `94719891483` in `script.js` and `index.html` and replace every occurrence with the new number in international format, without `+`, spaces, or a leading zero.
+To change the WhatsApp recipient, search for `94719891483` in `script.js`, `product.js`, `index.html`, and `product.html` and replace every occurrence with the new number in international format, without `+`, spaces, or a leading zero.
 
 ## Validate changes
 

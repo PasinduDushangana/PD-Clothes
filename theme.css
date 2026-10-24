@@ -277,3 +277,38 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .hero-image, .hero-eyebrow, .hero h1, .hero-content p, .hero-content .pill-button { animation: none !important; }
 }
+
+/* Softer edges throughout the storefront. */
+.nav { border-radius: 22px; }
+.hero { margin: 0 18px; border-radius: 0 0 28px 28px; }
+.hero-image, .hero-overlay { border-radius: inherit; }
+.pill-button { border-radius: 999px; }
+.filter-button { border-radius: 999px; }
+.collection-stamp { border-radius: 50%; }
+.product-card { border-radius: 20px; overflow: hidden; }
+.product-image-wrap { border-radius: 14px; }
+.product-badge { border-radius: 999px; }
+.quick-add { border-radius: 999px; }
+.mobile-add { border-radius: 999px; }
+.search-wrap { border-radius: 16px; }
+.statement { margin: 0 18px; border-radius: 26px; overflow: hidden; }
+.cta-banner { margin: 0 18px 18px; border-radius: 26px; }
+.footer { border-radius: 26px 26px 0 0; }
+.cart-drawer { border-radius: 24px 0 0 24px; overflow: hidden; }
+.cart-item img { border-radius: 10px; }
+.toast { border-radius: 999px; }
+.product-view-link { position: absolute; inset: 0; z-index: 1; border-radius: 14px; }
+.product-badge, .heart-button, .quick-add { z-index: 2; }
+.product-name a:hover { color: #e4b68a; }
+.product-card:focus-within { border-color: #d6a87b; }
+
+@media (max-width: 700px) {
+  .nav { border-radius: 17px; }
+  .nav-links { border-radius: 16px; }
+  .hero { margin: 0 8px; border-radius: 0 0 22px 22px; }
+  .statement, .cta-banner { margin-left: 8px; margin-right: 8px; border-radius: 21px; }
+  .cta-banner { margin-bottom: 8px; }
+  .product-card { border-radius: 14px; }
+  .product-image-wrap { border-radius: 10px; }
+  .cart-drawer { border-radius: 18px 0 0 18px; }
+}
