@@ -18,7 +18,7 @@
     const name = String(values.get('name')).trim();
     const message = String(values.get('message')).trim();
     if (!name || !message) { form.querySelector(!name ? '[name="name"]' : '[name="message"]').focus(); return; }
-    const text = `Hi PD Clothes! My name is ${name}.\n\n${values.get('topic')}\n${message}`;
+    const text = window.PD_MESSAGES.contact({ ...Object.fromEntries([...values].map(([key, value]) => [key, String(value).trim()])), name, message });
     location.href = `https://wa.me/94719891483?text=${encodeURIComponent(text)}`;
   });
 })();

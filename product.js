@@ -14,7 +14,7 @@
 
   if (!product || !product.name || !product.image || !Number.isFinite(product.price)) {
     document.title = 'Bag not found | PD Clothes';
-    $('productContent').innerHTML = '<div class="product-not-found"><span class="small-index">THE COLLECTION</span><h1>We could not find that bag.</h1><p>The link may have changed, or this style may no longer be available.</p><a class="pill-button dark-button" href="index.html#collection">EXPLORE ALL BAGS <svg><use href="#i-arrow"/></svg></a></div>';
+    $('productContent').innerHTML = '<div class="product-not-found"><span class="small-index">THE COLLECTION</span><h1>We could not find that bag.</h1><p>The link may have changed, or this style may no longer be available.</p><a class="pill-button dark-button" href="shop.html">EXPLORE ALL BAGS <svg><use href="#i-arrow"/></svg></a></div>';
     return;
   }
 
@@ -49,10 +49,13 @@
     </section>`;
 
   function orderUrl() {
-    if (!available(product)) return 'https://wa.me/94719891483?text=' + encodeURIComponent('Hi PD Clothes! Please let me know when ' + product.name + ' is available again.');
-    const message = `Hi PD Clothes! I would like to order:\n\n• ${product.name} (${product.color}) × ${quantity} — ${money(product.price * quantity)}\n\nPlease confirm availability, delivery, and payment details.`;
-    return `https://wa.me/94719891483?text=${encodeURIComponent(message)}`;
+    return window.PD_MESSAGES.url(available(product) ? window.PD_MESSAGES.buildOrder([{ product, quantity }]) : window.PD_MESSAGES.inquiry(product));
   }
+  $('detailOrder').addEventListener('click', event => {
+    if (!available(product)) return;
+    event.preventDefault();
+    window.PD_ORDERS.open([{ product, quantity }]);
+  });
   function refreshQuantity() { $('detailQuantity').textContent = quantity; $('detailOrder').href = orderUrl(); }
   $('qtyDecrease').addEventListener('click', () => { quantity = Math.max(1, quantity - 1); refreshQuantity(); });
   $('qtyIncrease').addEventListener('click', () => { quantity = Math.min(99, quantity + 1); refreshQuantity(); });

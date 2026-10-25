@@ -55,10 +55,13 @@
     $('cartFooter').innerHTML = `<div class="subtotal"><span>Subtotal</span><span>${money(total)}</span></div>${saved ? `<p class="cart-savings">You save ${money(saved)}</p>` : ''}<p class="drawer-note">Delivery and payment details will be confirmed with you on WhatsApp. No online payment is taken here.</p><a class="pill-button dark-button checkout-button" id="checkoutLink" href="${escapeHTML(orderUrl())}" target="_blank" rel="noopener noreferrer">ORDER ON WHATSAPP <svg><use href="#i-arrow"/></svg></a>`;
   }
   function orderUrl() {
-    const entries = Object.entries(cart).filter(([id]) => byId.has(id));
-    const lines = ['Hi PD Clothes! I would like to place an order:', '', ...entries.map(([id,qty]) => { const p = byId.get(id); return `• ${p.name} (${p.color}) × ${qty} — ${money(p.price*qty)}`; }), '', `Estimated subtotal: ${money(entries.reduce((sum,[id,qty]) => sum+byId.get(id).price*qty,0))}`, '', 'Please confirm availability, delivery, and payment details.'];
-    return 'https://wa.me/94719891483?text=' + encodeURIComponent(lines.join('\n'));
+    return window.PD_MESSAGES.url(window.PD_MESSAGES.buildOrder(Object.entries(cart).filter(([id]) => byId.has(id)).map(([id, quantity]) => ({ product: byId.get(id), quantity }))));
   }
+  $('cartFooter').addEventListener('click', event => {
+    if (!event.target.closest('#checkoutLink')) return;
+    event.preventDefault();
+    window.PD_ORDERS.open(Object.entries(cart).filter(([id]) => byId.has(id)).map(([id, quantity]) => ({ product: byId.get(id), quantity })));
+  });
   function openCart() { lastFocus = document.activeElement; $('scrim').hidden = false; requestAnimationFrame(() => $('scrim').classList.add('show')); $('cartDrawer').classList.add('open'); $('cartDrawer').setAttribute('aria-hidden','false'); document.body.classList.add('no-scroll'); $('cartClose').focus(); }
   function closeCart() { $('scrim').classList.remove('show'); $('cartDrawer').classList.remove('open'); $('cartDrawer').setAttribute('aria-hidden','true'); document.body.classList.remove('no-scroll'); setTimeout(() => { if (!$('cartDrawer').classList.contains('open')) $('scrim').hidden = true; },300); lastFocus?.focus(); }
   function addToCart(id, quantity = 1) {

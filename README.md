@@ -54,7 +54,7 @@ Set `inStock: false` to mark a product sold out. It stays visible, but cannot be
 
 Shoppers can filter by **On sale**, **My favorites**, and **Available only**, and sort by **Biggest discount**. Favorites are saved in that browser. These filters combine with category and search; “Show all bags” resets them when there are no matches.
 
-Run the local server, load the home page, search or filter for the new product, add it to the bag, and tap **Order on WhatsApp**. Check that the WhatsApp message names the right product, quantity, and price. The site stores the bag and favorites in the visitor's browser; no customer data is sent to the site itself.
+Run the local server, load the shop page, search or filter for the new product, add it to the bag, and tap **Order on WhatsApp**. Check that the WhatsApp message names the right product, quantity, and price. The site stores the bag and favorites in the visitor’s browser. Checkout details are held in the form only, then included in the WhatsApp link when the customer continues. They are not stored in localStorage or sent to the presence service.
 
 Images in `assets/` are illustrative generated artwork. Product details and availability must be confirmed by the shop owner before publication.
 
@@ -67,4 +67,43 @@ Images in `assets/` are illustrative generated artwork. Product details and avai
 - `about.html`: shop introduction and how shopping works.
 - `contact.html`: FAQs and a form that opens a prepared WhatsApp message for the visitor to send. Form entries are not stored by this website.
 
-Navigation and the cart work across all pages. `pages.js` handles featured bags and the contact form. Outfit headings and Manrope body text are self-hosted in `assets/fonts/`, with their font licenses included; visitors do not need to connect to a font service. `studio.css` is loaded last to apply the blue-green and mint theme consistently.
+Navigation and the cart work across all pages. `pages.js` handles featured bags and the contact form. Outfit headings and Manrope body text are self-hosted in `assets/fonts/`, with their font licenses included; visitors do not need to connect to a font service. `studio.css` is loaded last to apply the dark plum and champagne theme consistently. Large italic accents use the system Georgia serif alongside self-hosted Outfit and Manrope.
+
+## Detailed WhatsApp orders and messages
+
+`messaging.js` contains the shared message templates and order-details dialog. Both cart checkout and the product’s order button open a form for name, phone, and city, plus optional address and notes. Customers can expand **Preview your WhatsApp message** before continuing. Messages contain product IDs, style/color, product links, quantity, unit and line prices, discounts, savings, item count, estimated subtotal, and delivery details. Delivery fees and the final total remain unconfirmed until agreed in chat. No payment is collected on the site.
+
+Each dialog creates a short **request reference**, such as `PD-1234ABCD`, for discussing that request. It is not a confirmed order number and does not create a server-side order record. WhatsApp still requires the customer to send the prepared message. The contact form also supports a phone number, request reference, and product name/link; sold-out bags send a detailed availability inquiry.
+
+`loading.js` shows a branded loading screen while the page and fonts load, dismisses immediately when ready, and has a 2.8-second timeout. It supports reduced motion and dismisses on keyboard interaction. There is no simulated loading percentage or mandatory delay, and disabling JavaScript never leaves an overlay in place.
+
+## Activate the real live visitor count (Cloudflare)
+
+GitHub Pages cannot maintain a shared live count on its own. A deployable Cloudflare Worker with a SQLite Durable Object is included in `presence-worker/`. **The service is not deployed by the GitHub Pages workflow.** Until you deploy it and configure its URL, the storefront honestly shows “Live visitors · unavailable.”
+
+1. Create or sign in to your Cloudflare account. On your computer, install Node.js 22.13+ (Node.js 24 recommended), then run from this repository:
+
+   ```sh
+   cd presence-worker
+   npm ci
+   npx wrangler login
+   npm test
+   npm run deploy
+   ```
+
+2. Copy the HTTPS Workers URL printed by deployment (for example, `https://pd-clothes-presence.YOUR-SUBDOMAIN.workers.dev`). Open `site-config.js` on GitHub and set:
+
+   ```js
+   window.PD_CONFIG = {
+     presenceEndpoint: 'https://pd-clothes-presence.YOUR-SUBDOMAIN.workers.dev'
+   };
+   ```
+
+3. Commit that change to `main`. Once the Pages deployment finishes, open the site in two separate browsers. The footer should report two active visitors within about 20 seconds. Multiple tabs in the same browser share one ID. Close one browser and wait up to 80 seconds for the visible count to fall.
+4. If you use a custom domain, add its exact origin (scheme + hostname, without a path or trailing slash) to the comma-separated `ALLOWED_ORIGINS` in `presence-worker/wrangler.jsonc`, then redeploy the Worker. The default allows `https://pasindudushangana.github.io` plus localhost for development. Remove the localhost entries for production if desired.
+
+For local integration testing, run `npm run dev` inside `presence-worker/`, start the Python storefront server separately, and temporarily set the endpoint to `http://localhost:8787`. Restore the production HTTPS URL before committing.
+
+**How it works:** visible pages send an anonymous heartbeat every 20 seconds. One shared Durable Object counts browser IDs active in the last 60 seconds. An alarm removes expired records even when nobody visits. No names, phone numbers, order information, or page URLs enter this service. A random browser ID is kept locally and renewed on the next page load after 24 hours; clearing browser storage or using another browser creates a new ID. Cloudflare may process connection metadata under its own policies. This is an approximate active-browser count, not verified people or an analytics total; automated clients can affect it. If the service fails, the page shows “unavailable” and retries instead of displaying an old or invented count.
+
+The endpoint is public, accepts only bounded valid JSON requests from configured browser origins, and stores only anonymous IDs and last-seen times. Origin checks are not authentication or bot protection. Use Cloudflare rate limits if traffic or abuse warrants them, and check your account’s Workers/Durable Objects quotas. No Cloudflare API tokens or account secrets belong in `site-config.js` or GitHub source.
