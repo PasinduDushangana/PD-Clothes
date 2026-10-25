@@ -41,7 +41,7 @@
     $('emptyResults').hidden = list.length !== 0;
     $('productGrid').innerHTML = list.map(p => `<article class="product-card"><div class="product-image-wrap"><img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)} in ${escapeHTML(p.color)}" loading="lazy"><a class="product-view-link" href="product.html?id=${encodeURIComponent(p.id)}" aria-label="View details for ${escapeHTML(p.name)}"></a>${p.badge ? `<span class="product-badge">${escapeHTML(p.badge)}</span>` : ''}<button class="heart-button ${favorites.includes(p.id) ? 'saved' : ''}" type="button" data-favorite="${escapeHTML(p.id)}" aria-label="${favorites.includes(p.id) ? 'Remove' : 'Save'} ${escapeHTML(p.name)} ${favorites.includes(p.id) ? 'from' : 'to'} favorites" aria-pressed="${favorites.includes(p.id)}"><svg><use href="#i-heart"/></svg></button><button class="quick-add" type="button" data-add="${escapeHTML(p.id)}" ${available(p) ? '' : 'disabled'}>${available(p) ? 'ADD TO BAG +' : 'SOLD OUT'}</button></div><div class="product-meta"><div><div class="product-category">${escapeHTML(p.category)} · ${escapeHTML(p.color)}</div><h3 class="product-name"><a href="product.html?id=${encodeURIComponent(p.id)}">${escapeHTML(p.name)}</a></h3></div><div class="product-price">${priceHTML(p)}</div></div><button class="mobile-add" type="button" data-add="${escapeHTML(p.id)}" ${available(p) ? '' : 'disabled'}>${available(p) ? 'ADD TO BAG +' : 'SOLD OUT'}</button></article>`).join('');
   }
-  function updateCart() { saveStored('pd-clothes-cart-v1', cart); $('cartCount').textContent = Object.values(cart).reduce((sum,qty) => sum+qty, 0); renderCart(); }
+  function updateCart() { saveStored('pd-clothes-cart-v1', cart); document.querySelectorAll('[data-cart-count]').forEach(el => el.textContent = Object.values(cart).reduce((sum,qty) => sum+qty, 0)); renderCart(); }
   function renderCart() {
     const entries = Object.entries(cart).filter(([id]) => byId.has(id));
     if (!entries.length) {
@@ -62,8 +62,8 @@
     event.preventDefault();
     window.PD_ORDERS.open(Object.entries(cart).filter(([id]) => byId.has(id)).map(([id, quantity]) => ({ product: byId.get(id), quantity })));
   });
-  function openCart() { lastFocus = document.activeElement; $('scrim').hidden = false; requestAnimationFrame(() => $('scrim').classList.add('show')); $('cartDrawer').classList.add('open'); $('cartDrawer').setAttribute('aria-hidden','false'); document.body.classList.add('no-scroll'); $('cartClose').focus(); }
-  function closeCart() { $('scrim').classList.remove('show'); $('cartDrawer').classList.remove('open'); $('cartDrawer').setAttribute('aria-hidden','true'); document.body.classList.remove('no-scroll'); setTimeout(() => { if (!$('cartDrawer').classList.contains('open')) $('scrim').hidden = true; },300); lastFocus?.focus(); }
+  function openCart() { lastFocus = document.activeElement; $('cartDrawer').inert = false; document.querySelectorAll('.site-header, main, .footer, .mobile-dock').forEach(el => el.inert = true); $('scrim').hidden = false; requestAnimationFrame(() => $('scrim').classList.add('show')); $('cartDrawer').classList.add('open'); $('cartDrawer').setAttribute('aria-hidden','false'); document.querySelectorAll('[data-cart-open]').forEach(button => button.setAttribute('aria-expanded', 'true')); document.body.classList.add('no-scroll'); $('cartClose').focus(); }
+  function closeCart() { $('cartDrawer').inert = true; document.querySelectorAll('.site-header, main, .footer, .mobile-dock').forEach(el => el.inert = false); $('scrim').classList.remove('show'); $('cartDrawer').classList.remove('open'); $('cartDrawer').setAttribute('aria-hidden','true'); document.querySelectorAll('[data-cart-open]').forEach(button => button.setAttribute('aria-expanded', 'false')); document.body.classList.remove('no-scroll'); setTimeout(() => { if (!$('cartDrawer').classList.contains('open')) $('scrim').hidden = true; },300); lastFocus?.focus(); }
   function addToCart(id, quantity = 1) {
     if (!byId.has(id) || !available(byId.get(id))) return;
     if (!Number.isInteger(quantity) || quantity < 1) return;
@@ -93,19 +93,26 @@
     if (event.target.closest('#continueShopping')) { closeCart(); location.href = 'shop.html'; return; }
     for (const [attribute, change] of [['data-increase',1],['data-decrease',-1],['data-remove',0]]) { const button = event.target.closest(`[${attribute}]`); if (!button) continue; const id = button.getAttribute(attribute); if (!byId.has(id)) return; if (change === 0 || cart[id]+change <= 0) delete cart[id]; else cart[id] = Math.min(cart[id]+change,99); updateCart(); return; }
   });
-  $('cartOpen').addEventListener('click',openCart);
+  document.querySelectorAll('[data-cart-open]').forEach(button => button.addEventListener('click', openCart));
   $('cartClose').addEventListener('click',closeCart);
   $('scrim').addEventListener('click',closeCart);
-  document.addEventListener('keydown',event => { if (event.key === 'Escape' && $('cartDrawer').classList.contains('open')) closeCart(); });
+  $('cartDrawer').addEventListener('keydown', event => {
+    if (event.key !== 'Tab') return;
+    const controls = [...$('cartDrawer').querySelectorAll('button:not(:disabled), a[href]')].filter(el => el.getClientRects().length);
+    const first = controls[0], last = controls[controls.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  });
+  document.addEventListener('keydown',event => { if (event.key === 'Escape' && $('cartDrawer').classList.contains('open') && !document.querySelector('dialog[open]')) closeCart(); });
   if ($('productGrid')) {
-    $('searchToggle').addEventListener('click',() => { const wrap = $('searchWrap'); wrap.hidden = !wrap.hidden; if (!wrap.hidden) { location.hash='collection'; $('searchInput').focus(); } else { $('searchInput').value=''; searchTerm=''; renderProducts(); } });
+    $('searchToggle').addEventListener('click',() => { $('searchInput').focus(); $('searchWrap').scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }); });
     $('searchInput').addEventListener('input',event => { searchTerm = event.target.value.trim().toLowerCase(); renderProducts(); });
     $('clearSearch').addEventListener('click',() => { $('searchInput').value=''; searchTerm=''; renderProducts(); $('searchInput').focus(); });
     $('resetFilters').addEventListener('click',() => { activeCategory='All bags'; searchTerm=''; saleOnly=availableOnly=false; savedOnly=favoritesPage; ['saleOnly','savedOnly','availableOnly'].forEach(id => $(id).checked=false); $('savedOnly').checked=favoritesPage; $('searchInput').value=''; renderFilters(); renderProducts(); });
     $('sortSelect').addEventListener('change',renderProducts);
   }
-  $('menuToggle').addEventListener('click',() => { const open = $('navLinks').classList.toggle('open'); $('menuToggle').setAttribute('aria-expanded',String(open)); });
-  $('navLinks').addEventListener('click',event => { if (event.target.closest('a')) { $('navLinks').classList.remove('open'); $('menuToggle').setAttribute('aria-expanded','false'); } });
+
+
   $('year').textContent = new Date().getFullYear();
   if ($('productGrid')) { renderFilters(); renderProducts(); }
   updateCart();

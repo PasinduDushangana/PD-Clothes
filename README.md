@@ -10,7 +10,7 @@ No packages or build step are needed. From the repository directory, run:
 python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000`. Keep all HTML pages, CSS and JavaScript files, and `assets/` together. The latest colors and typography are in `studio.css`; the catalog and its prices stay in `products.js`. Each product automatically gets a detail URL such as `product.html?id=weekend-carryall`.
+Open `http://localhost:8000`. Keep all HTML pages, CSS and JavaScript files, and `assets/` together. The current layout and navigation styles are in `atelier.css`, with the theme and fonts in `studio.css`; the catalog and its prices stay in `products.js`. Each product automatically gets a detail URL such as `product.html?id=weekend-carryall`.
 
 ## Publish with GitHub Pages
 
@@ -67,7 +67,9 @@ Images in `assets/` are illustrative generated artwork. Product details and avai
 - `about.html`: shop introduction and how shopping works.
 - `contact.html`: FAQs and a form that opens a prepared WhatsApp message for the visitor to send. Form entries are not stored by this website.
 
-Navigation and the cart work across all pages. `pages.js` handles featured bags and the contact form. Outfit headings and Manrope body text are self-hosted in `assets/fonts/`, with their font licenses included; visitors do not need to connect to a font service. `studio.css` is loaded last to apply the dark plum and champagne theme consistently. Large italic accents use the system Georgia serif alongside self-hosted Outfit and Manrope.
+Navigation and the cart work across all pages. `pages.js` handles navigation state, the mobile More dialog, featured bags, and the contact form. Outfit headings and Manrope body text are self-hosted in `assets/fonts/`, with their font licenses included; visitors do not need to connect to a font service. `studio.css` supplies the dark plum and champagne theme; `atelier.css` is loaded last for the latest layouts and navigation. Large italic accents use the system Georgia serif alongside self-hosted Outfit and Manrope.
+
+At widths of 760px or less, the top header is hidden and the only navigation bar is a fixed bottom dock: **Home, Shop, Saved, Bag, More**. More opens the About and Contact links. The dock reserves space below the page and respects the device’s bottom safe area. The Bag button opens the shared cart, with the same item count as desktop. Search stays visible in the shop and saved-products pages. Desktop uses the full header with grouped page links and a labeled shopping-bag button. Navigation markup is repeated in all six HTML pages; update each copy together when adding pages.
 
 ## Detailed WhatsApp orders and messages
 
