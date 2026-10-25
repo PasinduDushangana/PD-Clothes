@@ -21,12 +21,15 @@
     if (event.target === more && (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom)) more.close();
   });
   matchMedia('(min-width: 761px)').addEventListener('change', event => { if (event.matches && more.open) more.close(); });
-  const edit = document.getElementById('homeEdit');
+  document.querySelectorAll('.market-search input').forEach(input => { input.value = new URLSearchParams(location.search).get('q') || ''; });
   const safe = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
-  if (edit) {
-    const products = window.PD_PRODUCTS.filter(p => p.id && p.name && p.image && Number.isFinite(p.price));
-    const picks = [...products.filter(p => p.featured), ...products.filter(p => !p.featured)].slice(0, 3);
-    edit.innerHTML = picks.map(p => `<a class="related-card" href="product.html?id=${encodeURIComponent(p.id)}"><div class="related-image"><img src="${safe(p.image)}" alt="${safe(p.name)}" loading="lazy"></div><div class="related-meta"><div><small>${safe(p.category)}</small><h3>${safe(p.name)}</h3></div><span class="related-price">${window.PD_COMMERCE.priceHTML(p)}</span></div></a>`).join('');
+  const categoryList = document.getElementById('marketCategories');
+  if (categoryList) {
+    const categories = [...new Set(window.PD_PRODUCTS.map(p => p.category).filter(Boolean))];
+    categoryList.innerHTML = categories.map(category => {
+      const items = window.PD_PRODUCTS.filter(p => p.category === category);
+      return `<a href="shop.html?category=${encodeURIComponent(category)}"><img src="${safe(items[0].image)}" alt="" loading="lazy"><span>${safe(category)}<small>${items.length} ${items.length === 1 ? 'product' : 'products'}</small></span><span aria-hidden="true">›</span></a>`;
+    }).join('');
   }
   document.getElementById('contactForm')?.addEventListener('submit', event => {
     event.preventDefault();

@@ -10,7 +10,7 @@ No packages or build step are needed. From the repository directory, run:
 python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000`. Keep all HTML pages, CSS and JavaScript files, and `assets/` together. The current layout and navigation styles are in `atelier.css`, with the theme and fonts in `studio.css`; the catalog and its prices stay in `products.js`. Each product automatically gets a detail URL such as `product.html?id=weekend-carryall`.
+Open `http://localhost:8000`. Keep all HTML pages, CSS and JavaScript files, and `assets/` together. The black marketplace theme, layout, and navigation styles are in `atelier.css`, with font definitions in `studio.css`; the catalog and its prices stay in `products.js`. Each product automatically gets a detail URL such as `product.html?id=weekend-carryall`.
 
 ## Publish with GitHub Pages
 
@@ -40,7 +40,7 @@ The animated gallery at the top automatically selects five products. By default,
 
 3. Commit the image and `products.js`. Your hosting service will publish the changes according to its deployment setup. Reload the site to see the new bag.
 
-`id` must be unique and should stay the same after publishing, because product links and saved shopping bags use it. `price` is a number of Sri Lankan rupees without commas or a currency symbol. `image` is a path relative to the site root. `images` is optional; add extra photo paths there for thumbnail selection on the detail page, or omit the field when you have one photo. Upload those images to `assets/` too. `category` creates a filter automatically; reuse an existing category name to keep items together. `badge` can be an empty string (`''`) for no label. Set `featured: true` for home-page recommendations. The home page shows up to three featured bags, filling any remaining spaces from the catalog. The shop’s default order follows the catalog. Edit or remove an object to update or remove a product. The sample products and prices are placeholders: replace them with your real inventory and prices before selling.
+`id` must be unique and should stay the same after publishing, because product links and saved shopping bags use it. `price` is a number of Sri Lankan rupees without commas or a currency symbol. `image` is a path relative to the site root. `images` is optional; add extra photo paths there for thumbnail selection on the detail page, or omit the field when you have one photo. Upload those images to `assets/` too. `category` creates a filter automatically; reuse an existing category name to keep items together. `badge` can be an empty string (`''`) for no label. Set `featured: true` to place a product first when the “Featured” sort is selected on the home or shop page. Products with the same featured status keep their catalog order. The home page displays the full catalog. Edit or remove an object to update or remove a product. The sample products and prices are placeholders: replace them with your real inventory and prices before selling.
 
 To change the WhatsApp recipient, search for `94719891483` across the HTML and JavaScript files and replace every occurrence with the new number in international format, without `+`, spaces, or a leading zero.
 
@@ -60,16 +60,18 @@ Images in `assets/` are illustrative generated artwork. Product details and avai
 
 ## Pages and fonts
 
-- `index.html`: home, automatic latest-five gallery, and featured bags.
+- `index.html`: marketplace home, automatic latest-five gallery, category shortcuts, and the full searchable catalog.
 - `shop.html`: full collection with search, sorting, sale and stock filters.
 - `favorites.html`: saved bags for the current browser, with search and filtering.
 - `product.html?id=...`: product details and WhatsApp ordering.
 - `about.html`: shop introduction and how shopping works.
 - `contact.html`: FAQs and a form that opens a prepared WhatsApp message for the visitor to send. Form entries are not stored by this website.
 
-Navigation and the cart work across all pages. `pages.js` handles navigation state, the mobile More dialog, featured bags, and the contact form. Outfit headings and Manrope body text are self-hosted in `assets/fonts/`, with their font licenses included; visitors do not need to connect to a font service. `studio.css` supplies the dark plum and champagne theme; `atelier.css` is loaded last for the latest layouts and navigation. Large italic accents use the system Georgia serif alongside self-hosted Outfit and Manrope.
+Navigation and the cart work across all pages. `pages.js` handles navigation state, the mobile More dialog, category shortcuts, and the contact form. Manrope headings and body text, plus Outfit brand lettering, are self-hosted in `assets/fonts/`, with their font licenses included; visitors do not need to connect to a font service. `atelier.css` is loaded last and supplies black and charcoal backgrounds, orange shopping actions, compact product cards, and sans-serif typography. Product listings use four columns on wide desktop screens, three on smaller desktops, and two on phones.
 
-At widths of 760px or less, the top header is hidden and the only navigation bar is a fixed bottom dock: **Home, Shop, Saved, Bag, More**. More opens the About and Contact links. The dock reserves space below the page and respects the device’s bottom safe area. The Bag button opens the shared cart, with the same item count as desktop. Search stays visible in the shop and saved-products pages. Desktop uses the full header with grouped page links and a labeled shopping-bag button. Navigation markup is repeated in all six HTML pages; update each copy together when adding pages.
+At widths of 760px or less, the top header is hidden and the only navigation bar is a fixed bottom dock: **Home, Shop, Saved, Bag, More**. More opens the About and Contact links. The dock reserves space below the page and respects the device’s bottom safe area. The Bag button opens the shared cart, with the same item count as desktop. Search stays visible in the shop and saved-products pages. Desktop uses a wide search field, a row of page links, and a labeled shopping-bag button. The mobile home page also has a search form above the arrivals banner. Navigation markup is repeated in all six HTML pages; update each copy together when adding pages.
+
+The header search opens `shop.html?q=search-term`; category shortcuts open `shop.html?category=Tote%20Bags`. Categories and their product counts come directly from `products.js`. Search text is displayed safely as text, and an unknown category falls back to all bags. Both home and shop retain filters, sorting, favorites, stock handling, real discount calculations, and WhatsApp checkout. The design does not add fabricated ratings, sales, or shipping promises.
 
 ## Detailed WhatsApp orders and messages
 
