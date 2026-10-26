@@ -28,3 +28,4 @@ body h1 em,body h2 em{font-style:italic;color:var(--street-gold);font-family:inh
 .detail-information{background:linear-gradient(140deg,#ffffff12,#ffffff04);border-color:#ffffff30;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:inset 0 1px #ffffff16}
 .mobile-dock{background:#15171cb8!important;-webkit-backdrop-filter:blur(24px) saturate(140%);backdrop-filter:blur(24px) saturate(140%);box-shadow:0 -8px 32px #0004,inset 0 1px #ffffff24}
 @supports not (backdrop-filter:blur(1px)){.site-header,.street-home .site-header,.mobile-dock{background:#111!important}.detail-information,.product-card{background:#1b1b1b}.paper-drop .product-card{background:#f0f0ec}}
+.street-hero-banner{display:block;width:100%;height:auto;max-height:min(75svh,760px);object-fit:cover;object-position:center}.street-hero-banner-link{display:block;line-height:0}.street-hero-banner-link:focus-visible{outline:3px solid #e8cf64;outline-offset:-3px}

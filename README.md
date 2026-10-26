@@ -58,6 +58,8 @@ Run the local server, load the shop page, search or filter for the new product, 
 
 Images in `assets/` are illustrative generated artwork. Product details and availability must be confirmed by the shop owner before publication.
 
+Product catalog images are stored as square 1000 × 1000 WebP files (for example, `assets/solstice-1000.webp`). Keep the original source files if you need to edit them later. For a new product, upload a square 1000 × 1000 image, reference that file in `products.js`, and use `object-fit: cover` only for display cropping.
+
 ## Pages and fonts
 
 - `index.html`: marketplace home, automatic latest-five gallery, category shortcuts, and the full searchable catalog.
