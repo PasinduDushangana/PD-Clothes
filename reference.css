@@ -188,6 +188,38 @@ h1 em,h2 em,.campaign h1 em { font-style:normal; color:inherit; }
   .nav-links a:nth-child(4) { animation-delay:.27s; }
   .nav-links a:nth-child(5) { animation-delay:.33s; }
 }
+
+/* Final first-screen polish */
+@media(min-width:761px) {
+  .site-header { margin-top:24px; }
+  .site-header:before {
+    content:'CURATED EVERYDAY ESSENTIALS  •  WHATSAPP ORDERING AVAILABLE';
+    display:block; position:absolute; top:-22px; left:0; right:0; text-align:center;
+    color:#56806b; font-size:8px; letter-spacing:.14em;
+  }
+  .nav.shell { min-height:92px; }
+  .brand-name { font-size:32px; }
+  .home-search { margin-top:38px; min-height:64px; border-radius:22px; box-shadow:0 8px 25px #1b543b0b,inset 0 1px #fff; }
+  .home-search input { font-size:16px; }
+  .browse-section { padding-block:18px 24px; }
+  #marketCategories>a { transition:transform .25s,box-shadow .25s,border-color .25s; }
+  #marketCategories>a:hover { transform:translateY(-3px); border-color:#76a98c; box-shadow:0 7px 16px #1b543b12; }
+  .campaign { min-height:420px; padding:52px 58px; border-radius:32px; box-shadow:0 18px 50px #154f3a22,inset 0 1px #ffffff25; }
+  .campaign h1 { font-size:72px; letter-spacing:-.06em; }
+  .campaign-image img { height:360px; }
+}
+.campaign { position:relative; }
+.campaign:before {
+  content:''; position:absolute; width:280px; height:280px; right:40%; bottom:-180px;
+  border:1px solid #ffffff22; border-radius:50%; box-shadow:0 0 0 30px #ffffff09,0 0 0 60px #ffffff05;
+  pointer-events:none;
+}
+@media(max-width:760px) {
+  .site-header:before { display:none; }
+  .home-search { min-height:54px; box-shadow:0 5px 18px #1b543b09,inset 0 1px #fff; }
+  .campaign { box-shadow:0 10px 28px #154f3a1d,inset 0 1px #ffffff25; }
+  .campaign:before { width:150px; height:150px; right:-40px; bottom:-90px; }
+}
 @keyframes nav-arrive {
   from { opacity:0; transform:translateY(-12px); }
   to { opacity:1; transform:translateY(0); }

@@ -137,3 +137,5 @@ Use the sun/moon button in the desktop header, or use the sun/moon button beside
 ## Cart and footer credit
 
 Each product card has **Buy** for a single WhatsApp request and **Add to cart** for a combined order. On a product page, select a quantity before choosing **Add to cart**. The bag icon opens the saved cart; its WhatsApp checkout includes all items, quantities, discounts, and the estimated subtotal. Sold-out products cannot be added. The footer on every page displays “Made By Pasindu Dushangana.”
+
+The homepage top section uses the final polish rules in `reference.css`: a floating desktop header with a service line, larger search field, animated category chips, and a spacious campaign hero. The mobile layout keeps the compact app style.
