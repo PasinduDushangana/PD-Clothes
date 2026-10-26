@@ -45,19 +45,22 @@
   dialog.innerHTML = `<button type="button" class="order-close icon-button" aria-label="Close order details">×</button>
     <span class="small-index">ONE STEP CLOSER</span><h2 id="orderTitle">Make it <em>yours.</em></h2>
     <p class="order-intro">Add your details, review your request, then send it on WhatsApp. We’ll confirm everything with you there.</p>
-    <form id="orderForm"><div class="order-fields">
+    <form id="orderForm"><div class="checkout-layout"><div class="order-fields">
       <label>Your name<input name="name" autocomplete="name" maxlength="80" placeholder="Full name" required></label>
       <label>Contact number<input name="phone" type="tel" autocomplete="tel" maxlength="30" placeholder="07X XXX XXXX" required></label>
       <label class="field-wide">City / district<input name="city" autocomplete="address-level2" maxlength="100" placeholder="Where should we deliver?" required></label>
       <label class="field-wide">Delivery address <span>(optional)</span><textarea name="address" autocomplete="street-address" rows="2" maxlength="400" placeholder="You can also share this in WhatsApp"></textarea></label>
       <label class="field-wide">Order notes <span>(optional)</span><textarea name="notes" rows="2" maxlength="500" placeholder="A delivery request or a question about your bags"></textarea></label>
-    </div><div class="order-summary" id="orderSummary"></div>
+    </div><div class="checkout-review"><div class="order-summary" id="orderSummary"></div><div id="checkoutItems"></div></div></div>
     <details class="message-preview"><summary>Preview your WhatsApp message</summary><pre id="orderPreview"></pre></details>
     <p class="order-privacy">Your details are used only to prepare this message and are not saved by this website. No online payment is collected.</p>
-    <button class="pill-button dark-button" type="submit">SEND REQUEST ON WHATSAPP <svg><use href="#i-arrow"/></svg></button></form>`;
+    <button class="pill-button dark-button" type="submit">CONTINUE TO WHATSAPP <svg><use href="#i-arrow"/></svg></button></form>`;
   document.body.append(dialog);
   const form = dialog.querySelector('form');
-  let selected = [], reference = '';
+  let selected = [], reference = '', pendingSignature = '';
+  const back = document.createElement('button');
+  back.type = 'button'; back.className = 'pill-button checkout-back'; back.textContent = 'BACK TO SHOPPING';
+  back.addEventListener('click', () => dialog.close()); form.append(back);
   const details = () => Object.fromEntries([...new FormData(form)].map(([key, value]) => [key, String(value).trim()]));
   function refresh() {
     document.getElementById('orderPreview').textContent = buildOrder(selected, details(), reference);
@@ -65,10 +68,24 @@
   function open(entries) {
     selected = entries.filter(item => available(item.product) && Number.isInteger(item.quantity) && item.quantity > 0 && item.quantity <= 99);
     if (!selected.length) return;
-    reference = 'PD-' + crypto.randomUUID().slice(0, 8).toUpperCase();
+    const signature = JSON.stringify(selected.map(item => [item.product.id, item.quantity, item.product.price]).sort());
+    if (signature !== pendingSignature || !reference) reference = 'PD-' + crypto.randomUUID().slice(0, 8).toUpperCase();
+    pendingSignature = signature;
+    back.textContent = document.getElementById('cartDrawer')?.classList.contains('open') ? 'BACK TO SHOPPING BAG' : 'BACK TO SHOPPING';
     form.reset();
     const total = selected.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
     document.getElementById('orderSummary').textContent = `${selected.reduce((sum, item) => sum + item.quantity, 0)} item(s) · ${money(total)} subtotal · Delivery confirmed in chat`;
+    document.getElementById('orderSummary').textContent += ' · Reference: ' + reference;
+    const items = document.getElementById('checkoutItems');
+    items.replaceChildren(...selected.map(({ product, quantity }) => {
+      const row = document.createElement('div'); row.className = 'checkout-item';
+      const img = document.createElement('img'); img.src = product.image; img.alt = product.name;
+      const copy = document.createElement('div');
+      const name = document.createElement('strong'); name.textContent = product.name;
+      const detail = document.createElement('span'); detail.textContent = (product.color || product.category) + ' · Qty ' + quantity;
+      const price = document.createElement('span'); price.textContent = money(product.price * quantity);
+      copy.append(name, detail, price); row.append(img, copy); return row;
+    }));
     refresh();
     dialog.showModal();
     dialog.scrollTop = 0;
