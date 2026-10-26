@@ -26,7 +26,7 @@
     apply();
   });
   document.addEventListener('DOMContentLoaded', () => {
-    for (const target of ['.nav-actions', '#moreDialog']) {
+    for (const target of ['.nav-actions', '.mobile-wordmark']) {
       const parent = document.querySelector(target);
       if (!parent) continue;
       const button = document.createElement('button');
@@ -38,7 +38,10 @@
         try { localStorage.setItem(key, preference); } catch {}
         apply();
       });
-      parent.prepend(button);
+      if (target === '.mobile-wordmark') {
+        parent.parentNode.insertBefore(button, parent.nextSibling);
+        button.classList.add('mobile-theme-toggle');
+      } else parent.prepend(button);
     }
     apply();
   });

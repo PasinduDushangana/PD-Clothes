@@ -6,6 +6,13 @@
 .nav-actions .theme-label { display:none; }
 .theme-toggle:hover { box-shadow:0 3px 12px #28774f20; }
 #moreDialog>.theme-toggle { width:100%; margin-bottom:22px; justify-content:flex-start; font-size:13px; }
+.mobile-theme-toggle { display:none; }
+@media(max-width:760px) {
+  .mobile-wordmark { padding-right:52px; }
+  .mobile-theme-toggle { display:grid; place-items:center; position:absolute; z-index:2; right:16px; top:18px; width:42px; height:42px; padding:7px; border-radius:14px; }
+  .mobile-theme-toggle .theme-label { display:none; }
+  .page-main,.detail-main,.boutique-home { position:relative; }
+}
 @media(min-width:761px) { .market-search { margin-right:108px; } }
 @media(min-width:761px) and (max-width:1100px) {
   .market-search { width:40px; padding-left:0; margin-right:100px; }
