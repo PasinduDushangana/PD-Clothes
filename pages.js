@@ -1,4 +1,8 @@
 (() => {
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const reveal = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('market-reveal'); reveal.unobserve(entry.target); } }), { threshold: .08 });
+    document.querySelectorAll('.shopping-benefits, .market-help, .product-card').forEach(el => reveal.observe(el));
+  }
   const page = location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('#navLinks a').forEach(link => {
     if (link.getAttribute('href') === page) link.setAttribute('aria-current', 'page');
