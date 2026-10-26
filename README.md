@@ -127,3 +127,5 @@ The uploaded root `banner.png` currently contains text rather than image data, s
 Liquid-glass surfaces are defined in the final section of `design.css`: translucent product panels, a frosted masthead and mobile dock, carousel panels, and dialogs. Solid backgrounds provide a fallback when backdrop blur is unsupported. Hover movement is limited to pointer devices and respects reduced-motion preferences.
 
 The mobile navigation follows the supplied raised-tab reference: a circular selected icon sits above a curved cutout. `pages.js` tracks the current page and open Bag/More dialogs, restoring the page selection when dialogs close. Shop filters, checkboxes, gallery controls, and quantity controls use the supplied soft-shadow UI treatment, adapted to the dark palette.
+
+Desktop navigation (above 760px) uses a rounded, floating glass header. Its entrance, subtle border glow, link underlines, and hover effects live in `reference.css`; reduced-motion preferences disable animation. Mobile retains its bottom navigation.
