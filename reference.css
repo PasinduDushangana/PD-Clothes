@@ -196,3 +196,30 @@ h1 em,h2 em,.campaign h1 em { font-style:normal; color:inherit; }
   0%,100% { border-color:#b8d5c4; box-shadow:inset 0 1px #fff,0 10px 35px #164d3010; }
   50% { border-color:#82b69a; box-shadow:inset 0 1px #fff,0 10px 35px #164d301a,0 0 18px #90c9aa14; }
 }
+.homepage-banner {
+  order:2;
+  position:relative;
+  aspect-ratio:2/1;
+  overflow:hidden;
+  margin-top:22px;
+  border-radius:28px;
+  background:
+    radial-gradient(circle at 75% 40%,#70b99368,transparent 32%),
+    radial-gradient(circle at 25% 65%,#daf0db99,transparent 35%),
+    linear-gradient(115deg,#235f4d,#75bba0);
+  box-shadow:0 14px 38px #1b533416;
+}
+.homepage-banner:before,.homepage-banner:after {
+  content:''; position:absolute; inset:12%; border:1px solid #ffffff24; border-radius:22px; transform:rotate(-4deg);
+}
+.homepage-banner:after { inset:23%; transform:rotate(8deg); }
+.homepage-banner img { position:relative; z-index:1; display:block; width:100%; height:100%; object-fit:contain; }
+.homepage-banner img[hidden] { display:none; }
+.campaign { order:3; }
+.boutique-home .collection { order:4; }
+.service-line { order:5; }
+.new-edit { order:6; }
+.personal-service { order:7; }
+@media(max-width:760px) {
+  .homepage-banner { margin-top:16px; border-radius:20px; }
+}

@@ -122,7 +122,7 @@ The endpoint is public, accepts only bounded valid JSON requests from configured
 
 Edit the color variables near the top of `reference.css` to change the background, text, brass accent, and borders. Both stylesheets contain responsive rules at 1100px and 760px; current visual overrides belong in `reference.css`. Edit the homepage introduction and personal-service copy in `index.html`; gallery content and category shortcuts come from `products.js` automatically. Product images display in square frames without changing their source files. For a cohesive collection, use consistent product photographs with a plain background; promotional text baked into uploaded images will still appear.
 
-The uploaded root `banner.png` currently contains text rather than image data, so it is not displayed. Replace it with a valid image file before using it as a banner. Keep banner artwork free of additional HTML text or button overlays.
+The homepage now has a responsive banner area after the category shortcuts. It uses the root `banner.png` file. The current file is only 2 bytes of text, so the site shows a decorative placeholder. To publish your banner, upload a real PNG image to the repository root with the exact name `banner.png` and commit to `main`; the image appears automatically after deployment. A wide image around 2:1 works best. The image is displayed in full with no added text or button overlay.
 
 Liquid-glass surfaces are defined in the final section of `design.css`: translucent product panels, a frosted masthead and mobile dock, carousel panels, and dialogs. Solid backgrounds provide a fallback when backdrop blur is unsupported. Hover movement is limited to pointer devices and respects reduced-motion preferences.
 
