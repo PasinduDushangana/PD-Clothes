@@ -141,3 +141,5 @@ Each product card has **Buy** for a single WhatsApp request and **Add to cart** 
 The homepage top section uses the final polish rules in `reference.css`: a floating desktop header with a service line, larger search field, animated category chips, and a spacious campaign hero. The mobile layout keeps the compact app style.
 
 The storefront now has a motion system in `reference.css`: first-screen entrance transitions, staggered category and product cards, animated hero rings, drifting banner outlines, image hover movement, button sheen, and a softly pulsing footer mark. The `prefers-reduced-motion` media query disables these effects and keeps controls usable.
+
+The full site refresh applies the shared page treatment in `reference.css`: framed collection headers, soft mint panels, redesigned about and contact sections, raised product detail imagery, and coordinated related-product cards. `appearance.css` keeps the same structure readable in dark mode.
