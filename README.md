@@ -125,3 +125,5 @@ Edit the color variables near the top of `design.css` to change the background, 
 The uploaded root `banner.png` currently contains text rather than image data, so it is not displayed. Replace it with a valid image file before using it as a banner. Keep banner artwork free of additional HTML text or button overlays.
 
 Liquid-glass surfaces are defined in the final section of `design.css`: translucent product panels, a frosted masthead and mobile dock, carousel panels, and dialogs. Solid backgrounds provide a fallback when backdrop blur is unsupported. Hover movement is limited to pointer devices and respects reduced-motion preferences.
+
+The mobile navigation follows the supplied raised-tab reference: a circular selected icon sits above a curved cutout. `pages.js` tracks the current page and open Bag/More dialogs, restoring the page selection when dialogs close. Shop filters, checkboxes, gallery controls, and quantity controls use the supplied soft-shadow UI treatment, adapted to the dark palette.

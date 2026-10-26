@@ -14,6 +14,17 @@
   const more = document.getElementById('moreDialog');
   const moreOpen = document.getElementById('moreOpen');
   if (['about.html', 'contact.html'].includes(page)) moreOpen.classList.add('is-section');
+  const dock = document.querySelector('.mobile-dock');
+  const dockItems = [...dock.children];
+  function updateDock() {
+    const selected = dockItems.find(item => item.getAttribute('aria-expanded') === 'true')
+      || dockItems.find(item => item.hasAttribute('aria-current') || item.classList.contains('is-section'))
+      || dockItems[0];
+    dockItems.forEach(item => item.classList.toggle('dock-selected', item === selected));
+    dock.style.setProperty('--dock-active', `${dockItems.indexOf(selected) * 20 + 10}%`);
+  }
+  new MutationObserver(updateDock).observe(dock, { subtree:true, attributes:true, attributeFilter:['aria-expanded','aria-current'] });
+  updateDock();
   more.querySelectorAll('a').forEach(link => {
     if (link.getAttribute('href') === page) link.setAttribute('aria-current', 'page');
   });
