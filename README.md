@@ -133,3 +133,7 @@ Desktop navigation (above 760px) uses a rounded, floating glass header. Its entr
 ## Light and dark appearance
 
 Use the sun/moon button in the desktop header, or use the sun/moon button beside the PD Clothes wordmark at the top of each mobile page. The first visit follows the device color preference; choosing a mode saves it in `pd-clothes-appearance` in localStorage and applies across pages and tabs. Without a saved choice, changes to the device preference are followed automatically. `appearance.js` runs in the head before styles render to prevent a theme flash, and `appearance.css` provides the coordinated forest-dark palette and toggle styling. Light palette rules remain in `reference.css`. Both themes include forms, order dialogs, loading, cards, and navigation.
+
+## Cart and footer credit
+
+Each product card has **Buy** for a single WhatsApp request and **Add to cart** for a combined order. On a product page, select a quantity before choosing **Add to cart**. The bag icon opens the saved cart; its WhatsApp checkout includes all items, quantities, discounts, and the estimated subtotal. Sold-out products cannot be added. The footer on every page displays “Made By Pasindu Dushangana.”

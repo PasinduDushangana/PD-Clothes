@@ -42,7 +42,7 @@
         <div class="detail-specs"><div><span>STYLE</span><strong>${safe(product.category)}</strong></div><div><span>COLOR</span><strong>${safe(product.color)}</strong></div></div>
         <div class="detail-purchase"><span class="detail-action-label">QUANTITY</span><div class="detail-quantity"><button type="button" id="qtyDecrease" aria-label="Decrease quantity"><svg><use href="#i-minus"/></svg></button><output id="detailQuantity" aria-live="polite">1</output><button type="button" id="qtyIncrease" aria-label="Increase quantity"><svg><use href="#i-plus"/></svg></button></div></div>
         <button class="pill-button dark-button detail-add" id="detailAdd" type="button">BUY <svg><use href="#i-arrow"/></svg></button>
-        <a class="pill-button detail-order" id="detailOrder" target="_blank" rel="noopener noreferrer">ORDER THIS BAG ON WHATSAPP <svg><use href="#i-arrow"/></svg></a>
+        ${available(product) ? '<button class="pill-button detail-order" id="detailCart" type="button">ADD TO CART <svg><use href="#i-bag"/></svg></button>' : '<a class="pill-button detail-order" id="detailOrder" target="_blank" rel="noopener noreferrer">ASK ABOUT AVAILABILITY <svg><use href="#i-arrow"/></svg></a>'}
         <div class="detail-utilities"><button type="button" id="detailFavorite" aria-pressed="false"><svg><use href="#i-heart"/></svg><span>SAVE THIS BAG</span></button><button type="button" id="detailShare"><svg><use href="#i-arrow"/></svg><span>SHARE THIS BAG</span></button></div>
         <div class="detail-accordions"><details><summary>DELIVERY & PAYMENT <span>+</span></summary><p>Message us on WhatsApp to confirm availability, delivery options, and payment details. No online payment is collected on this website.</p></details></div>
       </div>
@@ -51,15 +51,16 @@
   function orderUrl() {
     return window.PD_MESSAGES.url(available(product) ? window.PD_MESSAGES.buildOrder([{ product, quantity }]) : window.PD_MESSAGES.inquiry(product));
   }
-  $('detailOrder').addEventListener('click', event => {
+  $('detailOrder')?.addEventListener('click', event => {
     if (!available(product)) return;
     event.preventDefault();
     window.PD_ORDERS.open([{ product, quantity }]);
   });
-  function refreshQuantity() { $('detailQuantity').textContent = quantity; $('detailOrder').href = orderUrl(); }
+  function refreshQuantity() { $('detailQuantity').textContent = quantity; if ($('detailOrder')) $('detailOrder').href = orderUrl(); }
   $('qtyDecrease').addEventListener('click', () => { quantity = Math.max(1, quantity - 1); refreshQuantity(); });
   $('qtyIncrease').addEventListener('click', () => { quantity = Math.min(99, quantity + 1); refreshQuantity(); });
   $('detailAdd').addEventListener('click', () => { if (available(product)) window.PD_ORDERS.open([{ product, quantity }]); });
+  $('detailCart')?.addEventListener('click', () => window.dispatchEvent(new CustomEvent('pd:add-to-cart', { detail: { id:product.id, quantity } })));
   refreshQuantity();
   if (!available(product)) {
     $('detailAdd').disabled = true; $('detailAdd').textContent = 'SOLD OUT';

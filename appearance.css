@@ -60,4 +60,7 @@
 [data-theme="dark"] .loading-screen { background:var(--bg); }
 [data-theme="dark"] .loading-monogram { color:#c3efd3; }
 [data-theme="dark"] .theme-toggle { background:#24412e; }
+[data-theme="dark"] .card-cart-add { background:#213e2c; border-color:#749d8066; color:#c7ebd5; }
+[data-theme="dark"] .card-cart-add:hover { background:#315c3c; }
+[data-theme="dark"] .maker-credit { color:#9ad8af; }
 @media(prefers-reduced-motion:reduce) { .theme-toggle { transition:none; } }
