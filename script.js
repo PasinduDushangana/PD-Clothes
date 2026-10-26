@@ -18,28 +18,30 @@
   let activeCategory = products.some(p => p.category === query.get('category')) ? query.get('category') : 'All bags';
   let searchTerm = (query.get('q') || '').trim().toLowerCase().slice(0, 120);
   const favoritesPage = document.body.dataset.page === 'favorites';
+  const homePage = document.body.dataset.page === 'home';
   let saleOnly = query.get('sale') === '1', savedOnly = favoritesPage, availableOnly = false;
   let lastFocus = null;
   let toastTimer;
 
   function toast(message) { const el = $('toast'); el.textContent = message; el.classList.add('visible'); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('visible'), 2500); }
   function renderFilters() {
+    if (!$('filters')) return;
     const categories = ['All bags', ...new Set(products.map(p => p.category).filter(Boolean))];
     $('filters').innerHTML = categories.map(c => `<button class="filter-button ${c === activeCategory ? 'active' : ''}" type="button" data-category="${escapeHTML(c)}" aria-pressed="${c === activeCategory}">${escapeHTML(c)}</button>`).join('');
   }
   function visibleProducts() {
     let list = products.filter(p => (activeCategory === 'All bags' || p.category === activeCategory) && (!saleOnly || savings(p) > 0) && (!savedOnly || favorites.includes(p.id)) && (!availableOnly || available(p)) && [p.name,p.category,p.color,p.description].join(' ').toLowerCase().includes(searchTerm));
-    const sort = $('sortSelect').value;
+    const sort = $('sortSelect')?.value || 'featured';
     if (sort === 'featured') list.sort((a,b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
     if (sort === 'price-asc') list.sort((a,b) => a.price-b.price);
     if (sort === 'price-desc') list.sort((a,b) => b.price-a.price);
     if (sort === 'name') list.sort((a,b) => a.name.localeCompare(b.name));
     if (sort === 'discount') list.sort((a,b) => percent(b)-percent(a));
-    return list;
+    return homePage ? list.slice(0, 4) : list;
   }
   function renderProducts() {
     const list = visibleProducts();
-    $('resultCount').textContent = `${list.length} ${list.length === 1 ? 'style' : 'styles'}`;
+    if ($('resultCount')) $('resultCount').textContent = `${list.length} ${list.length === 1 ? 'style' : 'styles'}`;
     $('emptyResults').hidden = list.length !== 0;
     $('productGrid').innerHTML = list.map(p => `<article class="product-card"><div class="product-image-wrap"><img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)} in ${escapeHTML(p.color)}" loading="lazy"><a class="product-view-link" href="product.html?id=${encodeURIComponent(p.id)}" aria-label="View details for ${escapeHTML(p.name)}"></a>${p.badge ? `<span class="product-badge">${escapeHTML(p.badge)}</span>` : ''}<button class="heart-button ${favorites.includes(p.id) ? 'saved' : ''}" type="button" data-favorite="${escapeHTML(p.id)}" aria-label="${favorites.includes(p.id) ? 'Remove' : 'Save'} ${escapeHTML(p.name)} ${favorites.includes(p.id) ? 'from' : 'to'} favorites" aria-pressed="${favorites.includes(p.id)}"><svg><use href="#i-heart"/></svg></button><button class="quick-add" type="button" data-add="${escapeHTML(p.id)}" ${available(p) ? '' : 'disabled'}>${available(p) ? 'BUY' : 'SOLD OUT'}</button></div><div class="product-meta"><div><div class="product-category">${escapeHTML(p.category)} · ${escapeHTML(p.color)}</div><h3 class="product-name"><a href="product.html?id=${encodeURIComponent(p.id)}">${escapeHTML(p.name)}</a></h3></div><div class="product-price">${priceHTML(p)}</div><p class="product-order-note">${available(p) ? 'Order via WhatsApp' : 'Ask about availability'}</p></div><button class="mobile-add" type="button" data-add="${escapeHTML(p.id)}" ${available(p) ? '' : 'disabled'}>${available(p) ? 'BUY' : 'SOLD OUT'}</button></article>`).join('');
   }
@@ -47,7 +49,7 @@
   function renderCart() {
     const entries = Object.entries(cart).filter(([id]) => byId.has(id));
     if (!entries.length) {
-      $('cartItems').innerHTML = `<div class="cart-empty"><svg><use href="#i-bag"/></svg><h3>Your bag is waiting.</h3><p>See something you love? Add it here and send us your order in one easy message.</p><button class="pill-button dark-button" type="button" id="continueShopping">EXPLORE BAGS <svg><use href="#i-arrow"/></svg></button></div>`;
+      $('cartItems').innerHTML = `<div class="cart-empty"><svg><use href="#i-bag"/></svg><h3>Your bag is waiting.</h3><p>Explore the collection and choose Buy to send us an order request on WhatsApp.</p><button class="pill-button dark-button" type="button" id="continueShopping">EXPLORE BAGS <svg><use href="#i-arrow"/></svg></button></div>`;
       $('cartFooter').innerHTML = '';
       return;
     }
@@ -74,7 +76,7 @@
     toast(`${byId.get(id).name} added to your bag`);
   }
   window.addEventListener('pd:add-to-cart', event => { addToCart(event.detail.id, event.detail.quantity); openCart(); });
-  if ($('productGrid')) {
+  if ($('productGrid') && !homePage) {
     const options = document.createElement('div');
     options.className = 'shopping-options';
     options.innerHTML = '<label><input type="checkbox" id="saleOnly"> On sale</label><label><input type="checkbox" id="savedOnly"> My favorites</label><label><input type="checkbox" id="availableOnly"> Available only</label>';
@@ -86,6 +88,8 @@
     options.addEventListener('change', () => { saleOnly = $('saleOnly').checked; savedOnly = $('savedOnly').checked; availableOnly = $('availableOnly').checked; renderProducts(); });
     $('sortSelect').add(new Option('Biggest discount', 'discount'));
     $('filters').addEventListener('click', event => { const button = event.target.closest('[data-category]'); if (!button) return; activeCategory = button.dataset.category; renderFilters(); renderProducts(); });
+  }
+  if ($('productGrid')) {
     $('productGrid').addEventListener('click', event => {
       const add = event.target.closest('[data-add]');
       if (add) { const product = byId.get(add.dataset.add); if (product && available(product)) window.PD_ORDERS.open([{ product, quantity: 1 }]); return; }
@@ -108,7 +112,7 @@
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   });
   document.addEventListener('keydown',event => { if (event.key === 'Escape' && $('cartDrawer').classList.contains('open') && !document.querySelector('dialog[open]')) closeCart(); });
-  if ($('productGrid')) {
+  if ($('productGrid') && !homePage) {
     $('searchToggle')?.addEventListener('click',() => { $('searchInput').focus(); $('searchWrap').scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }); });
     $('searchInput').addEventListener('input',event => { searchTerm = event.target.value.trim().toLowerCase(); renderProducts(); });
     $('clearSearch').addEventListener('click',() => { $('searchInput').value=''; searchTerm=''; renderProducts(); $('searchInput').focus(); });

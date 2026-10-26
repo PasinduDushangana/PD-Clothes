@@ -18,7 +18,7 @@ Push these files to the repository’s `main` branch. The repository includes a 
 
 ## Add or update products on GitHub
 
-The animated gallery at the top automatically selects five products. By default, append a new product to the end of `PD_PRODUCTS` to make it the newest. You can also set `addedAt: '2026-10-24'` (an ISO date) on products: dated items are sorted newest first, followed by undated items in reverse catalog order. To use dates consistently, add this field to all products. The gallery shows fewer cards when fewer than five products exist, pauses during interaction, and starts paused when the visitor prefers reduced motion.
+The animated “Fresh perspectives” gallery on the home page automatically selects five products. By default, append a new product to the end of `PD_PRODUCTS` to make it the newest. You can also set `addedAt: '2026-10-24'` (an ISO date) on products: dated items are sorted newest first, followed by undated items in reverse catalog order. To use dates consistently, add this field to all products. The gallery shows fewer cards when fewer than five products exist, pauses during interaction, and starts paused when the visitor prefers reduced motion.
 
 1. Add the product photograph to `assets/` in the GitHub repository. Use a square WebP or JPG image; 1000 × 1000 px is the required source size. Do not reuse another product's image unless it is the same bag.
 2. Open [`products.js`](products.js) on GitHub, click the pencil icon, and add an object inside the `window.PD_PRODUCTS` array. Put a comma after the preceding product. For example:
@@ -40,7 +40,7 @@ The animated gallery at the top automatically selects five products. By default,
 
 3. Commit the image and `products.js`. Your hosting service will publish the changes according to its deployment setup. Reload the site to see the new bag.
 
-`id` must be unique and should stay the same after publishing, because product links and saved shopping bags use it. `price` is a number of Sri Lankan rupees without commas or a currency symbol. `image` is a path relative to the site root. `images` is optional; add extra photo paths there for thumbnail selection on the detail page, or omit the field when you have one photo. Upload those images to `assets/` too. `category` creates a filter automatically; reuse an existing category name to keep items together. `badge` can be an empty string (`''`) for no label. Set `featured: true` to place a product first when the “Featured” sort is selected on the home or shop page. Products with the same featured status keep their catalog order. The home page displays the full catalog. Edit or remove an object to update or remove a product. The sample products and prices are placeholders: replace them with your real inventory and prices before selling.
+`id` must be unique and should stay the same after publishing, because product links and saved shopping bags use it. `price` is a number of Sri Lankan rupees without commas or a currency symbol. `image` is a path relative to the site root. `images` is optional; add extra photo paths there for thumbnail selection on the detail page, or omit the field when you have one photo. Upload those images to `assets/` too. `category` creates a filter automatically; reuse an existing category name to keep items together. `badge` can be an empty string (`''`) for no label. Set `featured: true` to prioritize a product in the homepage selection and the shop’s “Featured” sort. Products with the same featured status keep their catalog order. The homepage shows the first four products in featured order; the Shop page always offers the complete catalog. Edit or remove an object to update or remove a product. The sample products and prices are placeholders: replace them with your real inventory and prices before selling.
 
 To change the WhatsApp recipient, search for `94719891483` across the HTML and JavaScript files and replace every occurrence with the new number in international format, without `+`, spaces, or a leading zero.
 
@@ -54,7 +54,7 @@ Set `inStock: false` to mark a product sold out. It stays visible, but cannot be
 
 Shoppers can filter by **On sale**, **My favorites**, and **Available only**, and sort by **Biggest discount**. Favorites are saved in that browser. These filters combine with category and search; “Show all bags” resets them when there are no matches.
 
-Run the local server, load the shop page, search or filter for the new product, add it to the bag, and tap **Order on WhatsApp**. Check that the WhatsApp message names the right product, quantity, and price. The site stores the bag and favorites in the visitor’s browser. Checkout details are held in the form only, then included in the WhatsApp link when the customer continues. They are not stored in localStorage or sent to the presence service.
+Run the local server, load the shop page, search or filter for the new product, choose **Buy**, and review the prepared WhatsApp request. Check that the WhatsApp message names the right product, quantity, and price. The site stores the bag and favorites in the visitor’s browser. Checkout details are held in the form only, then included in the WhatsApp link when the customer continues. They are not stored in localStorage or sent to the presence service.
 
 Images in `assets/` are illustrative generated artwork. Product details and availability must be confirmed by the shop owner before publication.
 
@@ -62,22 +62,22 @@ The bundled sample catalog images are stored as square 1000 × 1000 WebP files (
 
 ## Pages and fonts
 
-- `index.html`: marketplace home, automatic latest-five gallery, category shortcuts, and the full searchable catalog.
+- `index.html`: editorial home, four selected products, automatic latest-five gallery, and category shortcuts.
 - `shop.html`: full collection with search, sorting, sale and stock filters.
 - `favorites.html`: saved bags for the current browser, with search and filtering.
 - `product.html?id=...`: product details and WhatsApp ordering.
 - `about.html`: shop introduction and how shopping works.
 - `contact.html`: FAQs and a form that opens a prepared WhatsApp message for the visitor to send. Form entries are not stored by this website.
 
-Navigation and the cart work across all pages. `pages.js` handles navigation state, the mobile More dialog, category shortcuts, and the contact form. Outfit headings and brand lettering, plus Manrope body text, are self-hosted in `assets/fonts/`, with their font licenses included; visitors do not need to connect to a font service. `design.css` is the single active stylesheet across all six pages, supplying black glass surfaces, gold shopping actions, silver text, and rounded product cards. Earlier theme files are retained but are no longer loaded. Product listings use four columns on wide desktop screens, three on smaller desktops, and two on phones.
+Navigation and the cart work across all pages. `pages.js` handles navigation state, the mobile More dialog, category shortcuts, and the contact form. Headings and the wordmark use the system Georgia serif font (with Times New Roman as fallback). Manrope body text is self-hosted in `assets/fonts/`, with its font license included; visitors do not need to connect to a font service. `design.css` is the single active stylesheet across all six pages, supplying warm black backgrounds, ivory text, muted brass accents, understated borders, and gently rounded image frames. Earlier theme files are retained but are no longer loaded. The homepage selection uses four columns on desktop and two on phones; the full shop uses four on wide desktops, three on smaller desktops, and two on phones.
 
-At widths of 760px or less, the top header is hidden and the only navigation bar is a fixed bottom dock: **Home, Shop, Saved, Bag, More**. More opens the About and Contact links. The dock reserves space below the page and respects the device’s bottom safe area. The Bag button opens the shared cart, with the same item count as desktop. Search stays visible in the shop and saved-products pages. Desktop uses a wide search field, a row of page links, and a labeled shopping-bag button. The home page has search and filters above its product grid. Navigation markup is repeated in all six HTML pages; update each copy together when adding pages.
+At widths of 760px or less, the top header is hidden and the only navigation bar is a fixed bottom dock: **Home, Shop, Saved, Bag, More**. More opens the About and Contact links. The dock reserves space below the page and respects the device’s bottom safe area. The Bag button opens the shared cart, with the same item count as desktop. Search stays visible in the shop and saved-products pages. Desktop uses a centered wordmark, page links on the left, and search and a shopping-bag button on the right. The homepage links to the full shop for search, filters, and sorting. Navigation markup is repeated in all six HTML pages; update each copy together when adding pages.
 
-The header search opens `shop.html?q=search-term`; category shortcuts open `shop.html?category=Tote%20Bags`. Categories and their product counts come directly from `products.js`. Search text is displayed safely as text, and an unknown category falls back to all bags. Both home and shop retain filters, sorting, favorites, stock handling, real discount calculations, and WhatsApp checkout. The design does not add fabricated ratings, sales, or shipping promises.
+The header search opens `shop.html?q=search-term`; category shortcuts open `shop.html?category=Tote%20Bags`. Categories and their product counts come directly from `products.js`. Search text is displayed safely as text, and an unknown category falls back to all bags. The shop retains filters and sorting. Both the home selection and shop retain favorites, stock handling, real discount calculations, and WhatsApp ordering. The design does not add fabricated ratings, sales, or shipping promises.
 
 ## Visual effects and Buy buttons
 
-The current gold, black, and silver styling is in `design.css`. The homepage pairs an oversized heading with the automatic latest-five product gallery. An animated light ring, glowing borders, glass panels, hover sheen, and product reveals add movement; decorative motion respects the visitor’s reduced-motion setting. Catalog Buy buttons open a one-item WhatsApp order form directly. The product-page Buy button uses the selected quantity. Stock checks still prevent buying sold-out products.
+The boutique styling is in `design.css`. The homepage pairs serif typography with a large editorial photograph. Copy and controls sit beside the photograph, never over it. Gentle product-image zoom, fades between arrivals, hover transitions, and short entrance animations provide restrained motion. The navigation and product-image controls retain a subtle blur. Decorative motion respects the visitor’s reduced-motion setting. Catalog Buy buttons open a one-item WhatsApp order form directly. The product-page Buy button uses the selected quantity. Stock checks still prevent buying sold-out products.
 
 ## Detailed WhatsApp orders and messages
 
@@ -120,6 +120,6 @@ The endpoint is public, accepts only bounded valid JSON requests from configured
 
 ## Customize the design
 
-Edit the color variables near the top of `design.css` to change the background, text, gold accent, and borders. The same file contains the desktop layout and responsive rules at 1100px and 760px. Edit the homepage introduction and concierge copy in `index.html`; gallery content and category shortcuts come from `products.js` automatically. Product images display in square frames without changing their source files.
+Edit the color variables near the top of `design.css` to change the background, text, brass accent, and borders. The same file contains the desktop layout and responsive rules at 1100px and 760px. Edit the homepage introduction and personal-service copy in `index.html`; gallery content and category shortcuts come from `products.js` automatically. Product images display in square frames without changing their source files. For a cohesive collection, use consistent product photographs with a plain background; promotional text baked into uploaded images will still appear.
 
 The uploaded root `banner.png` currently contains text rather than image data, so it is not displayed. Replace it with a valid image file before using it as a banner. Keep banner artwork free of additional HTML text or button overlays.
