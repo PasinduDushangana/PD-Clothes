@@ -34,7 +34,6 @@ h1 em,h2 em{font-weight:400;font-style:italic;color:#c0ad8d}
 .nav-links { grid-row:1; grid-column:1; display:flex; gap:23px; }
 .nav-links a { font-size:10px; letter-spacing:.08em; padding:12px 0; border-bottom:1px solid transparent; }
 .nav-links a:hover,.nav-links a[aria-current] { color:var(--gold); border-color:var(--gold); }
-.nav-links a[href="index.html"] { display:none; }
 .mobile-wordmark { display:none; }
 .market-search { grid-row:1; grid-column:3; justify-self:end; display:flex; align-items:center; width:170px; margin-right:58px; border-bottom:1px solid var(--line); }
 .market-search input { width:100%; min-width:0; background:none; border:0; padding:12px 0; color:var(--text); outline:0; font-size:11px; }
