@@ -129,3 +129,7 @@ Liquid-glass surfaces are defined in the final section of `design.css`: transluc
 The mobile navigation follows the supplied raised-tab reference: a circular selected icon sits above a curved cutout. `pages.js` tracks the current page and open Bag/More dialogs, restoring the page selection when dialogs close. Shop filters, checkboxes, gallery controls, and quantity controls use the supplied soft-shadow UI treatment, adapted to the dark palette.
 
 Desktop navigation (above 760px) uses a rounded, floating glass header. Its entrance, subtle border glow, link underlines, and hover effects live in `reference.css`; reduced-motion preferences disable animation. Mobile retains its bottom navigation.
+
+## Light and dark appearance
+
+Use the sun/moon button in the desktop header, or open **More** on mobile and select **Light mode / Dark mode**. The first visit follows the device color preference; choosing a mode saves it in `pd-clothes-appearance` in localStorage and applies across pages and tabs. Without a saved choice, changes to the device preference are followed automatically. `appearance.js` runs in the head before styles render to prevent a theme flash, and `appearance.css` provides the coordinated forest-dark palette and toggle styling. Light palette rules remain in `reference.css`. Both themes include forms, order dialogs, loading, cards, and navigation.
