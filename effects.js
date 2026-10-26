@@ -59,13 +59,20 @@
   const observed = new WeakSet();
   const observer = new IntersectionObserver(entries => entries.forEach(entry => {
     if (!entry.isIntersecting) return;
+    entry.target.classList.remove('reveal-ready');
     if (enabled()) entry.target.classList.add('lux-reveal');
     observer.unobserve(entry.target);
-  }), { threshold:.08 });
+  }), { threshold:.1, rootMargin:'0px 0px -5% 0px' });
   function observe(root) {
-    root.querySelectorAll('.product-card,.related-card,.value-grid article,.market-section-heading,.personal-service,.contact-card,.about-layout').forEach((element, i) => {
+    if (!enabled()) return;
+    root.querySelectorAll('.product-card,.related-card,.value-grid article,.market-section-heading,.personal-service,.contact-card,.about-layout,.page-intro,.detail-gallery,.detail-information,.contact-help,.service-line,.arrival-gallery,.edit-copy').forEach((element, i) => {
       if (observed.has(element)) return;
       observed.add(element);
+      const card = element.matches('.product-card,.related-card,.value-grid article');
+      const fromLeft = element.matches('.about-layout,.detail-gallery,.edit-copy');
+      const fromRight = element.matches('.contact-card,.contact-help,.detail-information,.arrival-gallery');
+      element.dataset.reveal = card ? (i % 2 ? 'right' : 'left') : fromLeft ? 'left' : fromRight ? 'right' : 'up';
+      element.classList.add('reveal-ready');
       element.style.setProperty('--reveal-delay', `${(i % 4) * 65}ms`);
       observer.observe(element);
     });
