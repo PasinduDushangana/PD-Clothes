@@ -1,0 +1,49 @@
+/* Finishing effects shared by the light and dark palettes. */
+:root { --effect-accent:#248c63; --effect-line:#65bd9655; --effect-glow:#45c9961c; }
+[data-theme="dark"] { --effect-accent:#83ffc0; --effect-line:#83ffc054; --effect-glow:#45ee9619; }
+body { isolation:isolate; }
+.ambient-lights { position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
+.ambient-lights i { position:absolute; width:min(75vw,850px); aspect-ratio:1; border-radius:50%; background:radial-gradient(circle,var(--effect-glow),transparent 67%); }
+.ambient-lights i:first-child { top:-22%; right:-15%; animation:ambient-drift 19s ease-in-out infinite alternate; }
+.ambient-lights i:last-child { bottom:-30%; left:-20%; animation:ambient-drift 24s -9s ease-in-out infinite alternate-reverse; }
+.cursor-halo { position:fixed; left:0; top:0; width:0; height:0; z-index:10000; pointer-events:none; opacity:0; transition:opacity .18s,transform .09s ease-out; }
+.cursor-halo:before { content:''; position:absolute; width:36px; height:36px; left:-18px; top:-18px; border:1px solid var(--effect-accent); border-radius:50%; box-shadow:0 0 14px var(--effect-line),inset 0 0 12px var(--effect-glow); background:radial-gradient(circle,transparent 35%,var(--effect-glow)); transition:transform .2s,border-color .2s; }
+.cursor-halo.is-visible { opacity:.65; }
+.cursor-halo.is-interactive:before { transform:scale(1.45); }
+.cursor-halo.is-pressed:before { transform:scale(.75); }
+.effects-control { border:1px solid var(--line); padding:9px 13px; border-radius:99px; background:transparent; color:var(--muted); font:inherit; font-size:10px; cursor:pointer; }
+.effects-control:hover { color:var(--text); border-color:var(--effect-line); }
+.effects-control:disabled { cursor:default; }
+.presence-row { flex-wrap:wrap; }
+.campaign { border:1px solid #ffffff35; }
+.campaign-copy { position:relative; z-index:1; }
+.page-intro,.personal-service,.contact-card { box-shadow:inset 0 1px #ffffff36,0 18px 45px #1254320b; }
+.product-card { transition:box-shadow .35s,border-color .35s,transform .35s; }
+.detail-image-frame { overflow:hidden; }
+.detail-image-frame>img { transition:transform .8s cubic-bezier(.2,.7,.2,1); }
+.footer-main a:not(.footer-logo) { transition:color .25s,translate .25s; }
+.pill-button svg,.card-cart-add svg,.text-link svg { transition:translate .25s; }
+@media(prefers-reduced-motion:no-preference) {
+  .product-card { animation:none; }
+  .lux-reveal { animation:lux-reveal .65s var(--reveal-delay,0ms) cubic-bezier(.2,.7,.2,1) backwards; }
+  .campaign:before { animation:ambient-drift 16s ease-in-out infinite alternate; }
+  .theme-toggle:hover svg { animation:icon-turn .45s ease; }
+  dialog[open] { animation:dialog-arrive .25s ease both; }
+}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  .product-card:hover,.related-card:hover { border-color:var(--effect-line); box-shadow:0 18px 42px #133e2420,0 0 22px var(--effect-glow),inset 0 1px #ffffff36; transform:translateY(-5px); }
+  .detail-image-frame:hover>img { transform:scale(1.035); }
+  .footer-main a:hover { translate:3px 0; }
+  .pill-button:hover svg,.text-link:hover svg { translate:4px 0; }
+  .card-cart-add:hover svg { translate:0 -2px; }
+}
+@keyframes ambient-drift { from { transform:translate3d(-15px,0,0) scale(.96); } to { transform:translate3d(35px,35px,0) scale(1.08); } }
+@keyframes lux-reveal { from { opacity:0; translate:0 18px; } to { opacity:1; translate:0 0; } }
+@keyframes icon-turn { from { rotate:-30deg; scale:.85; } to { rotate:0deg; scale:1; } }
+@keyframes dialog-arrive { from { opacity:0; scale:.98; } to { opacity:1; scale:1; } }
+.effects-backgrounded *,.effects-backgrounded *:before,.effects-backgrounded *:after { animation-play-state:paused!important; }
+.effects-paused *,.effects-paused *:before,.effects-paused *:after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }
+.effects-paused .loading-screen { animation:loader-exit 0s 3.5s forwards!important; }
+.effects-paused .cursor-halo,.effects-paused .ambient-lights { display:none; }
+@media(prefers-reduced-motion:reduce),(hover:none),(pointer:coarse) { .cursor-halo { display:none; } }
+@media(prefers-reduced-motion:reduce) { .ambient-lights { display:none; } }

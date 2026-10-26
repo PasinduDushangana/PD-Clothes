@@ -143,3 +143,9 @@ The homepage top section uses the final polish rules in `reference.css`: a float
 The storefront now has a motion system in `reference.css`: first-screen entrance transitions, staggered category and product cards, animated hero rings, drifting banner outlines, image hover movement, button sheen, and a softly pulsing footer mark. The `prefers-reduced-motion` media query disables these effects and keeps controls usable.
 
 The full site refresh applies the shared page treatment in `reference.css`: framed collection headers, soft mint panels, redesigned about and contact sections, raised product detail imagery, and coordinated related-product cards. `appearance.css` keeps the same structure readable in dark mode.
+
+## Neon and ambient effects
+
+`effects.css` and `effects.js` add a desktop mouse halo, drifting background light, glass-edge highlights, scroll reveals (including filtered products), and dialog entrances. The native cursor remains visible; the halo is decorative and cannot intercept clicks. Touch devices and reduced-motion preferences disable the cursor effect. Background animation pauses while the tab is hidden, and pointer updates only run when the mouse moves.
+
+The footer's **Pause visual effects** button turns off decorative motion across the site and saves that choice in `pd-effects-paused`. Device reduced-motion settings take priority. Adjust the `--effect-accent`, `--effect-line`, and `--effect-glow` variables in `effects.css` to change light and dark effect colors.
