@@ -1,0 +1,130 @@
+/* Mint storefront: responsive art direction based on the supplied app references. */
+:root { color-scheme:light; --bg:#f5faf7; --surface:#fff; --text:#142e27; --muted:#63736d; --gold:#17624c; --line:#163f291c; }
+body { background:radial-gradient(ellipse at 85% 0,#d9f1e6,transparent 45%),#f5faf7; }
+h1,h2,h3,.brand-name,.mobile-wordmark,.footer-logo { font-family:Outfit,Arial,sans-serif; font-weight:500; letter-spacing:-.035em; }
+h1 em,h2 em,.campaign h1 em { font-style:normal; color:inherit; }
+.edition,.small-index { color:#35755e; }
+.site-header { background:#f7fcf9de; border-color:var(--line); box-shadow:0 5px 25px #193b2910; }
+.brand-name { font-size:30px; text-transform:none; letter-spacing:-.04em; }
+.brand-name small { color:var(--muted); }
+.market-search { border-color:var(--line); }
+.market-search input,.market-search button { color:var(--text); }
+.nav-links a:hover,.nav-links a[aria-current] { color:#13604a; }
+.cart-count { background:#0c4939; color:white; }
+.boutique-home { display:flex; flex-direction:column; }
+.home-search { order:0; display:flex; align-items:center; gap:15px; background:#ffffffc9; border:1px solid var(--line); border-radius:18px; padding:9px 18px; margin-top:30px; }
+.home-search input { flex:1; min-width:0; border:0; outline:0; background:none; font-size:15px; color:var(--text); }
+.home-search button { width:40px; height:40px; display:grid; place-items:center; border:0; border-radius:12px; background:#e4f1e9; color:#175c45; }
+.browse-section { order:1; padding-block:20px; }
+.browse-section .market-section-heading { display:none; }
+#marketCategories { display:flex; gap:12px; overflow:auto; padding-bottom:5px; }
+#marketCategories>a { display:flex; flex:1; gap:12px; padding:10px 15px; border:1px solid var(--line); border-radius:17px; background:#ffffffb0; white-space:nowrap; font-size:13px; }
+#marketCategories img { width:42px; height:42px; aspect-ratio:1; border:0; border-radius:12px; }
+#marketCategories small { display:none; }
+#marketCategories>a>span:last-child { margin-left:auto; }
+.campaign { order:2; background:linear-gradient(115deg,#114f3e,#3e8d70); border-radius:28px; padding:38px 44px; gap:40px; margin-top:5px; color:#fff; overflow:hidden; }
+.campaign h1 { font-size:64px; line-height:1.07; margin:20px 0; }
+.campaign .edition { color:#c0e7d6; }
+.campaign-copy p { color:#d8eee4; font-size:15px; }
+.campaign-signature,.campaign-image figcaption { display:none; }
+.campaign-image img { height:350px; border-radius:22px; box-shadow:none; object-position:center 12%; }
+.campaign .dark-button { background:#fff; color:#153e30; border-color:#fff; border-radius:15px; }
+.service-line { order:4; margin-bottom:45px; padding:23px; border:1px solid var(--line); border-radius:18px; background:#ffffff90; }
+.boutique-home .collection { order:3; padding-block:40px; }
+.market-section-heading h2 { font-size:32px; margin-top:8px; }
+.market-section-heading .edition { display:none; }
+.text-link { color:#215642; border-color:#9ab9aa; }
+.product-card { background:#ffffffd9; border:1px solid #dce7df; border-radius:22px; padding:0 0 12px; overflow:hidden; box-shadow:0 5px 18px #1b543b05; }
+.product-image-wrap { border-radius:20px 20px 0 0; }
+.product-meta { padding:15px 14px; }
+.product-category { color:#65786c; font-size:10px; }
+.product-name { color:#172f24; font:500 17px/1.35 Outfit,sans-serif; }
+.product-price,.current-price { color:#155d44; font-weight:600; font-size:17px; }
+.original-price { color:#6a766e; font-size:12px; }
+.discount-label { background:#e2f3e9; color:#17603f; }
+.mobile-add { width:calc(100% - 26px); margin-inline:13px; border:0; border-radius:12px; background:#124e3c; color:white; box-shadow:none; }
+.mobile-add:hover { background:#267b5d; color:white; }
+.heart-button { background:#fffffff0; color:#174936; border:0; box-shadow:0 3px 12px #0001; }
+.heart-button.saved { color:#176346; }
+.product-badge { background:#16533fe8; color:white; border:0; }
+.new-edit { order:5; background:#e4f3eb; border-color:var(--line); padding-block:45px; }
+.edit-copy h2 { font-size:48px; }.edit-index { display:none; }
+.arrival-gallery { background:#ffffffb8; border:1px solid #cbded2; box-shadow:0 15px 40px #245a3c0a; }
+.gallery-caption,.arrival-card-info small { color:var(--muted); }
+.gallery-controls { background:#deebe2; box-shadow:none; }
+.gallery-controls>button { color:#17513c; border-color:#c8dacf; background:#f7fcf9; box-shadow:none; }
+.gallery-dots button:after { background:#aac5b6; }.gallery-dots button[aria-pressed="true"]:after { background:#16553c; }
+.personal-service { order:6; margin-top:45px; background:#fff9; border-color:var(--line); box-shadow:none; }
+.pill-button { border-radius:14px; border-color:#afcbbd; }
+.dark-button { background:#124e3c; color:white; border-color:#124e3c; }
+.dark-button:hover { background:#26785c; color:white; border-color:#26785c; }
+.page-intro h1 { font-size:46px; }.page-intro { margin-bottom:25px; }
+.filters { background:#e8f0eb; border-color:#dae6dd; box-shadow:none; }
+.filter-button { color:#5a7063; }
+.filter-button.active { background:#14513e; border-color:#14513e; color:white; box-shadow:0 4px 10px #19523a18; }
+.sort-label select,.search-wrap { background:#fff; border-color:#d6e3da; color:var(--text); border-radius:15px; }
+.search-wrap input,.search-wrap button { color:var(--text); }
+.shopping-options input { background:white; border-color:#b8cec0; box-shadow:none; }
+.shopping-options input:checked { background:#c1e6d1; border-color:#8bc2a4; }
+.detail-information { background:#ffffffa8; border-radius:25px; padding:30px; border:1px solid var(--line); }
+.detail-information h1 { font-size:43px; }
+.detail-description,.detail-specs span,.detail-action-label,.detail-utilities button { color:#617568; }
+.detail-specs strong,.detail-quantity button { color:var(--text); }
+.detail-quantity { border-color:#c9ddcf; }.detail-quantity button { background:#e9f3ed; box-shadow:none; }
+.detail-order { background:white; color:#21593f; border-color:#bad2c3; }
+.breadcrumbs { color:#668070; }.image-caption { color:#718779; }
+.related-card { background:white; border:1px solid var(--line); border-radius:20px; overflow:hidden; }
+.related-meta { padding:16px; }.related-image { border-radius:0; }
+.contact-card,.order-dialog,.more-dialog { background:#f8fcf9f5; border-color:#c8ddcf; color:var(--text); box-shadow:0 20px 60px #123b2420; }
+.contact-card label,.order-fields label { color:#365b46; }
+.contact-card :is(input,select,textarea),.order-fields :is(input,textarea) { background:#fff; border-color:#cddfd3; color:var(--text); }
+.order-summary { background:#e5f4eb; color:#1b6242; border-color:#bfdaca; }
+.cart-drawer,.drawer-footer { background:#f4faf6; border-color:#c9ded1; }
+.qty-control button,.remove-item { color:#275e42; }.cart-item p { color:#63796b; }
+.footer { background:#e6f1e9; border-color:#d0e2d5; }
+.footer-main h3,.footer-main p,.footer-main>div:not(:first-child),.footer-bottom,.presence-row { color:#52725e; }
+.loading-screen { background:#f2faf5; }.loading-monogram { color:#19543c; }
+@media(max-width:1100px) {
+  .campaign h1 { font-size:48px; }.campaign-image img { height:310px; }
+}
+@media(max-width:760px) {
+  .shell { width:calc(100% - 32px); }
+  .mobile-wordmark { text-align:left; font:500 25px Outfit,sans-serif; letter-spacing:-.04em; color:#164d37; }
+  .boutique-home>.mobile-wordmark { margin:25px 16px 0; }
+  .home-search { margin-top:20px; padding:5px 12px; border-radius:17px; }
+  .home-search input { font-size:16px; }.home-search input::placeholder { font-size:12px; }
+  .browse-section { padding-block:15px; }
+  #marketCategories { gap:8px; }
+  #marketCategories>a { flex:0 0 auto; padding:9px 14px; font-size:11px; border-radius:99px; gap:0; }
+  #marketCategories img,#marketCategories>a>span:last-child { display:none; }
+  .campaign { display:grid; grid-template-columns:1fr .9fr; gap:12px; padding:20px 16px; border-radius:22px; align-items:center; min-height:235px; }
+  .campaign-copy { text-align:left; }.campaign .edition { display:none; }
+  .campaign h1 { font-size:clamp(23px,6vw,36px); margin:0 0 12px; line-height:1.12; }
+  .campaign-copy p { font-size:11px; margin-bottom:16px; }
+  .campaign .pill-button { padding:0 12px; min-height:38px; font-size:8px; gap:10px; border-radius:12px; }
+  .campaign-image img { height:205px; border-radius:16px; object-position:78% center; }
+  .boutique-home .collection { padding-block:28px; }
+  .market-section-heading { align-items:center; margin-bottom:18px; }
+  .market-section-heading h2 { font-size:24px; margin:0; }
+  .market-section-heading .text-link { margin-top:0; }
+  .product-grid,.boutique-home .product-grid { gap:16px 12px; }
+  .product-card { padding:0 0 10px; border-radius:18px; }
+  .product-image-wrap { border-radius:17px 17px 0 0; }
+  .product-meta { padding:12px 10px; }.product-name { font-size:14px; }
+  .product-category { font-size:8px; }.product-price,.current-price { font-size:15px; }
+  .mobile-add { width:calc(100% - 20px); margin-inline:10px; min-height:37px; }
+  .service-line { padding:17px; margin-bottom:25px; font-size:10px; }
+  .edit-copy h2 { font-size:33px; }.new-edit { padding-block:30px; }
+  .personal-service { margin-top:28px; margin-bottom:28px; padding-block:32px; }
+  .personal-service h2 { font-size:33px; }
+  .page-main,.detail-main { padding-top:24px; }.page-intro h1 { font-size:32px; }
+  .page-intro { padding-bottom:20px; }.page-intro p { font-size:12px; }
+  .detail-information { padding:23px 18px; margin-top:20px; }
+  .detail-information h1 { font-size:32px; }
+  .mobile-dock:before { background:linear-gradient(145deg,#143f31f5,#0c2822f5); border-color:#41725c; }
+  .mobile-dock>a,.mobile-dock>button { color:#c1d6cb; }
+  .mobile-dock>*.dock-selected { color:#b8f2cf; }
+  .mobile-dock>*.dock-selected:before { background:linear-gradient(145deg,#d7f6e4,#74b88f); border-color:#eefcf2; }
+  .mobile-dock>*.dock-selected>svg { color:#174e34; }
+  .dock-count { background:#c4ecd4; color:#133c29; }
+}

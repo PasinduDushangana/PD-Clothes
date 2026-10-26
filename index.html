@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#121210">
+  <meta name="theme-color" content="#f5faf7">
   <meta name="description" content="PD Clothes — bags for every version of you. Browse the collection and place your order directly through WhatsApp.">
   <title>PD Clothes | Shop Bags Online</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="design.css?v=sculpted-4">
+  <link rel="stylesheet" href="reference.css?v=mint-1">
   <script src="products.js" defer></script>
   <script src="commerce.js" defer></script>
   <script src="messaging.js" defer></script>
@@ -41,22 +42,23 @@
   </dialog>
   <main class="boutique-home">
     <p class="mobile-wordmark" aria-label="PD Clothes">PD CLOTHES</p>
+    <form class="home-search shell" action="shop.html" role="search"><svg aria-hidden="true"><use href="#i-search"/></svg><input name="q" type="search" placeholder="Search bags, styles, colors…" aria-label="Search all bags"><button type="submit" aria-label="Search"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button></form>
     <section class="campaign shell" aria-labelledby="hero-title">
       <div class="campaign-copy">
         <span class="edition">THE ART OF EVERYDAY</span>
-        <h1 id="hero-title">A beautiful bag.<br>A world of<br><em>possibilities.</em></h1>
-        <p>Considered shapes. Distinctive details.<br>Discover the pieces that make every day your own.</p>
-        <a class="pill-button dark-button" href="shop.html">EXPLORE THE COLLECTION <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <h1 id="hero-title">Carry better.<br><em>Go everywhere.</em></h1>
+        <p>Discover your everyday companion.</p>
+        <a class="pill-button dark-button" href="shop.html">SHOP NOW <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <span class="campaign-signature">YOUR DAY. YOUR STYLE. PD CLOTHES.</span>
       </div>
       <figure class="campaign-image">
-        <img src="assets/editorial.webp" width="1024" height="1536" alt="Editorial styling with an ivory woven shoulder bag and black tailoring" fetchpriority="high">
+        <img src="assets/hero.webp" width="1672" height="941" alt="Editorial styling with a burgundy shoulder bag and black tailoring" fetchpriority="high">
         <figcaption><span>THE EVERYDAY EDIT</span><span>01 / PD CLOTHES</span></figcaption>
       </figure>
     </section>
     <div class="service-line shell"><span>Bags for every day, and everything in between.</span><a href="contact.html">PERSONAL SERVICE ON WHATSAPP <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
     <section class="collection shell" id="collection" aria-labelledby="homeCatalogTitle">
-      <div class="market-section-heading"><div><span class="edition">THE COLLECTION</span><h2 id="homeCatalogTitle">Your everyday, elevated.</h2></div><a class="text-link" href="shop.html">SHOP ALL BAGS <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+      <div class="market-section-heading"><div><span class="edition">THE COLLECTION</span><h2 id="homeCatalogTitle">Popular picks</h2></div><a class="text-link" href="shop.html">View all <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
       <div class="product-grid" id="productGrid"></div>
       <div class="empty-results" id="emptyResults" hidden><h3>The next edit is on its way.</h3><p>Contact us to discover available styles.</p><a href="contact.html" class="text-link">GET IN TOUCH</a></div>
     </section>
