@@ -7,7 +7,7 @@
   function apply() {
     const mode = preference || (system.matches ? 'dark' : 'light');
     document.documentElement.dataset.theme = mode;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', mode === 'dark' ? '#101b17' : '#f5faf7');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', mode === 'dark' ? '#0B0B0D' : '#F7F8FA');
     document.querySelectorAll('[data-theme-toggle]').forEach(button => {
       button.setAttribute('aria-pressed', String(mode === 'dark'));
       button.setAttribute('aria-label', 'Dark mode');

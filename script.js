@@ -97,6 +97,10 @@
       if (add) { const product = byId.get(add.dataset.add); if (product && available(product)) window.PD_ORDERS.open([{ product, quantity: 1 }]); return; }
       const favorite = event.target.closest('[data-favorite]');
       if (favorite) { const id = favorite.dataset.favorite; favorites = favorites.includes(id) ? favorites.filter(item => item !== id) : [...favorites,id]; saveStored('pd-clothes-favorites-v1',favorites); renderProducts(); toast(favorites.includes(id) ? 'Saved to your favorites' : 'Removed from favorites'); }
+      else if (!event.target.closest('a,button,input,select,textarea')) {
+        const link = event.target.closest('.product-card')?.querySelector('.product-view-link');
+        if (link) location.href = link.href;
+      }
     });
   }
   $('cartItems').addEventListener('click', event => {

@@ -1,6 +1,6 @@
 # Editorial redesign
 
-The existing static project and catalog remain in place. The active final art direction is `luxury.css`; `editorial.js` adds quick view, collections navigation, gallery keyboard/swipe interactions, contextual cursor labels, and restrained magnetic actions.
+The existing static project and catalog remain in place. The active final art direction is `luxury.css`; `editorial.js` adds collections navigation, gallery keyboard/swipe interactions, contextual cursor labels, and restrained magnetic actions.
 
 ## Preserved systems
 
@@ -14,11 +14,11 @@ The existing static project and catalog remain in place. The active final art di
 
 ## Changes
 
-Charcoal/off-white and burgundy palettes, serif editorial headings, quieter surfaces, image-led cards, collection dropdown, expanded mobile menu links, product quick view, gallery keyboard/swipe support, detailed two-column checkout with thumbnails and reference, and back-to-shopping action. Mobile checkout stacks into one column.
+Black/off-white and silver palettes, serif editorial headings, quieter surfaces, image-led cards, collection dropdown, expanded mobile menu links, gallery keyboard/swipe support, detailed two-column checkout with thumbnails and reference, and back-to-shopping action. Mobile checkout stacks into one column.
 
 ## Verification and limits
 
-Browser checks covered six routes in both themes at 390px and 1440px, quick view, adding products, quantities and subtotal, reference stability while typing, checkout thumbnails and cart persistence. Additional navigation checks covered 820px and keyboard dismissal of collections.
+Browser checks covered six routes in both themes at 390px and 1440px, product navigation, adding products, quantities and subtotal, reference stability while typing, checkout thumbnails and cart persistence. Additional navigation checks covered 820px and keyboard dismissal of collections.
 
 The supplied root `banner.png` remains invalid image data; its slot collapses until replaced by a valid PNG. Product photography and catalog accuracy remain the owner's responsibility. No shipping prices, returns policies, reviews, company history or social accounts were invented. The presence backend remains separately configured. No Lighthouse score or globally unique order references are claimed. Real WhatsApp sending and physical-device tests require customer interaction; automated checks do not submit orders.
 

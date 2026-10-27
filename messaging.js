@@ -4,34 +4,39 @@
   const url = message => `https://wa.me/94719891483?text=${encodeURIComponent(message)}`;
   const productUrl = product => new URL(`product.html?id=${encodeURIComponent(product.id)}`, location.href).href;
   const productLines = (product, quantity) => [
-    `${product.name} × ${quantity}`,
-    `Product ID: ${product.id}`,
-    `Style: ${product.category} | Color: ${product.color}`,
+    `*${product.name}*  × ${quantity}`,
+    `Style: ${product.category}  •  Color: ${product.color}`,
     `Unit price: ${money(product.price)}`,
-    ...(savings(product) ? [`Original price: ${money(product.originalPrice)} | Discount: ${percent(product)}%`, `Savings: ${money(savings(product) * quantity)}`] : []),
-    `Item total: ${money(product.price * quantity)}`,
-    `Product: ${productUrl(product)}`
+    ...(savings(product) ? [`Offer: ${percent(product)}% off (was ${money(product.originalPrice)})`, `You save: ${money(savings(product) * quantity)}`] : []),
+    `Line total: *${money(product.price * quantity)}*`,
+    `Product ID: ${product.id}`,
+    `View: ${productUrl(product)}`
   ];
   const buildOrder = (entries, details = {}, reference = '') => {
     const subtotal = entries.reduce((sum, { product, quantity }) => sum + product.price * quantity, 0);
     const saved = entries.reduce((sum, { product, quantity }) => sum + savings(product) * quantity, 0);
     return [
-      '*PD CLOTHES | ORDER REQUEST*',
-      'Hello! I would like to order the following bags.',
-      ...(reference ? [`Request reference: ${reference}`] : []),
-      '', ...entries.flatMap(({ product, quantity }, index) => [`${index + 1}. ${productLines(product, quantity).join('\n')}`, '']),
-      `Items: ${entries.reduce((sum, item) => sum + item.quantity, 0)}`,
-      `Estimated subtotal: ${money(subtotal)}`,
-      ...(saved ? [`Total savings: ${money(saved)}`] : []),
-      'Delivery fee: please confirm',
-      'Final total: awaiting confirmation', '',
+      '*PD CLOTHES*',
+      'ORDER REQUEST',
+      '────────────────────',
+      'Hello! I would love to order these bags. Please confirm availability and the final total.',
+      ...(reference ? [`Reference: *${reference}*`] : []),
+      '', '*YOUR ITEMS*',
+      ...entries.flatMap(({ product, quantity }, index) => [`${index + 1}. ${productLines(product, quantity).join('\n')}`, '']),
+      '────────────────────',
+      `Quantity: ${entries.reduce((sum, item) => sum + item.quantity, 0)} item(s)`,
+      `Bag subtotal: *${money(subtotal)}*`,
+      ...(saved ? [`Offer savings: ${money(saved)}`] : []),
+      'Delivery: to be confirmed',
+      'Final payable total: to be confirmed', '',
       '*CUSTOMER & DELIVERY*',
       `Name: ${details.name || 'To be shared in chat'}`,
       `Phone: ${details.phone || 'To be shared in chat'}`,
       `City / district: ${details.city || 'To be shared in chat'}`,
       `Delivery address: ${details.address || 'To be shared in chat'}`,
       ...(details.notes ? [`Order notes: ${details.notes}`] : []), '',
-      'Please confirm stock, delivery cost and timing, the final total, and payment instructions. This is an order request; no payment has been made on the website.'
+      'Please share the delivery fee and timing, final amount, and payment instructions. Thank you!',
+      '_No payment has been made on the website._'
     ].join('\n');
   };
   const inquiry = product => ['*PD CLOTHES | AVAILABILITY REQUEST*', 'Hello! Please let me know when this bag is available again.', '', `Bag: ${product.name}`, `Product ID: ${product.id}`, `Style: ${product.category}`, `Color: ${product.color}`, `Listed price: ${money(product.price)}`, `Product: ${productUrl(product)}`, '', 'Could you confirm restock timing, similar bags, delivery options, and payment arrangements?'].join('\n');
